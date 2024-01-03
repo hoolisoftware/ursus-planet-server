@@ -26,6 +26,7 @@ SECRET_KEY = 'django-insecure-$+eyrm&&gge&$jn^jh%n^eess%xuhj$ifqym+i1nxu_#jtxdh=
 DEBUG = True
 
 ALLOWED_HOSTS = ['ursasplanet.com', 'api.ursasplanet.com', 'localhost']
+CSRF_TRUSTED_ORIGINS = ['https://ursasplanet.com', 'https://api.ursasplanet.com']
 CORS_ALLOWED_ORIGINS = ['https://ursasplanet.com', 'https://api.ursasplanet.com']
 
 # Application definition
