@@ -2,7 +2,18 @@ from django.contrib import admin
 
 from . import models
 
-# Register your models here.
+
+@admin.register(models.Chain)
+class ChainAdmin(admin.ModelAdmin):
+    search_fields = (
+        'name',
+    )
+    list_display = (
+        'chain_id',
+        'name'
+    )
+
+
 @admin.register(models.UserWallet)
 class UserWalletAdmin(admin.ModelAdmin):
     autocomplete_fields = (

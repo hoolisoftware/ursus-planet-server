@@ -27,7 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['ursasplanet.com', 'api.ursasplanet.com', 'localhost']
 CSRF_TRUSTED_ORIGINS = ['https://ursasplanet.com', 'https://api.ursasplanet.com']
+CSRF_TRUSTED_ORIGINS = ['http://*']
 CORS_ALLOWED_ORIGINS = ['https://ursasplanet.com', 'https://api.ursasplanet.com']
+
 
 # Application definition
 
@@ -44,7 +46,8 @@ INSTALLED_APPS = [
 
     'apps.users',
     'apps.projects',
-    'apps.wallets'
+    'apps.wallets',
+    'apps.web3auth'
 ]
 
 MIDDLEWARE = [
