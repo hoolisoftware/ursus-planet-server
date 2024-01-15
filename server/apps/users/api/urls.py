@@ -1,9 +1,12 @@
+from django.urls import path
 from rest_framework.routers import DefaultRouter
 
-from .views import UserViewSet
+from . import views
 
 
 router = DefaultRouter()
-router.register(r'', UserViewSet, basename='user')
+router.register(r'', views.UserViewSet, basename='user')
 
-urlpatterns = router.urls
+urlpatterns = [
+    path('update-username-email/', views.UserUpdateUsernameEmailView.as_view())
+] + router.urls

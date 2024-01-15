@@ -21,6 +21,7 @@ class UserWalletAdmin(admin.ModelAdmin):
     )
     list_display = (
         'hash',
+        'chain',
         'user'
     )
 

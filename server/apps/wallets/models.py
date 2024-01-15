@@ -31,7 +31,7 @@ class ProjectWallet(Wallet):
 
 
 class UserWallet(Wallet):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='wallets', null=True)
 
     def __str__(self):
         return f'{self.hash} (user wallet)'
