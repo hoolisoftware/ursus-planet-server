@@ -11,6 +11,7 @@ User = get_user_model()
 
 
 class UserSelfMixin:
+
     def get_queryset(self):
         return User.objects.filter(id=self.request.user.id)
 
@@ -22,8 +23,3 @@ class UserSelfMixin:
 class UserViewSet(UserSelfMixin, ModelViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = serializers.UserSerializer
-
-
-class UserUpdateUsernameEmailView(UserSelfMixin, UpdateAPIView):
-    permission_classes = [IsAuthenticated]
-    serializer_class = serializers.UserUsernameEmailSerializer

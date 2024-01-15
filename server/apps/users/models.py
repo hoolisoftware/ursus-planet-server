@@ -7,6 +7,14 @@ from .managers import UserManager
 
 
 class User(AbstractUser):
+    FREQUENCY_CHOICES = (
+        ('fast', 'As fast as possible'),
+        ('hour', 'Every hour'),
+        ('day', 'Every day'),
+        ('week', 'Every week'),
+        ('month', 'Every month')
+    )
+
     first_name = None
     last_name = None
     avatar = OptimizedImageField(
@@ -16,6 +24,14 @@ class User(AbstractUser):
         null=True,
         blank=True
     )
+
+    # notifications settings
+    cabinet_notifications_email = models.BooleanField(default=False)
+    cabinet_notifications_account = models.BooleanField(default=False)
+    cabinet_notifications_frequency = models.CharField(choices=FREQUENCY_CHOICES, max_length=64, default='fast')
+    project_notifications_email = models.BooleanField(default=False)
+    project_notifications_account = models.BooleanField(default=False)
+    project_notifications_frequency = models.CharField(choices=FREQUENCY_CHOICES, max_length=64, default='fast')
 
     objects = UserManager()
     

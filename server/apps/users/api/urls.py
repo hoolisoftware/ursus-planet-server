@@ -8,5 +8,4 @@ router = DefaultRouter()
 router.register(r'', views.UserViewSet, basename='user')
 
 urlpatterns = [
-    path('update-username-email/', views.UserUpdateUsernameEmailView.as_view())
 ] + router.urls

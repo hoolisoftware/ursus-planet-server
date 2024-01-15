@@ -7,13 +7,3 @@ class UserSerializer(ModelSerializer):
     class Meta:
         model = User
         fields = '__all__'
-
-
-
-class UserUsernameEmailSerializer(ModelSerializer):
-    class Meta:
-        model = User
-        fields = (
-            'username',
-            'email'
-        )
