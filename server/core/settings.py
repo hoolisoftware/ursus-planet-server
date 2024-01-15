@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,8 +28,8 @@ SECRET_KEY = 'django-insecure-$+eyrm&&gge&$jn^jh%n^eess%xuhj$ifqym+i1nxu_#jtxdh=
 DEBUG = True
 
 ALLOWED_HOSTS = ['ursasplanet.com', 'api.ursasplanet.com', 'localhost']
-CSRF_TRUSTED_ORIGINS = ['https://ursasplanet.com', 'https://api.ursasplanet.com']
-CORS_ALLOWED_ORIGINS = ['https://ursasplanet.com', 'https://api.ursasplanet.com']
+CSRF_TRUSTED_ORIGINS = ['https://ursasplanet.com', 'https://api.ursasplanet.com', 'http://localhost:3000']
+CORS_ALLOWED_ORIGINS = ['https://ursasplanet.com', 'https://api.ursasplanet.com', 'http://localhost:3000']
 
 
 # Application definition
@@ -150,10 +152,21 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication'
+        'rest_framework.authentication.BasicAuthentication',
+        'apps.web3auth.authenticate.CustomAuthentication',
     )
+}
+
+SIMPLE_JWT = {
+    'AUTH_COOKIE': 'access_token',  
+    'AUTH_COOKIE_DOMAIN': None,     
+    'AUTH_COOKIE_SECURE': False,    
+    'AUTH_COOKIE_HTTP_ONLY' : True, 
+    'AUTH_COOKIE_PATH': '/',        
+    'AUTH_COOKIE_SAMESITE': 'Lax',  
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60)
 }
 
 OPTIMIZED_IMAGE_METHOD = 'pillow'

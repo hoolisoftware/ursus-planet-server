@@ -15,6 +15,10 @@ class User(AbstractUser):
         ('month', 'Every month')
     )
 
+    # TODO: add username validation
+    username = models.CharField(max_length=64, blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
+    password = models.TextField(blank=True, null=True)
     first_name = None
     last_name = None
     avatar = OptimizedImageField(
@@ -35,5 +39,7 @@ class User(AbstractUser):
 
     objects = UserManager()
     
+    USERNAME_FIELD = 'id'
+
     def __str__(self):
-        return self.username
+        return f"{self.username}({self.id})"

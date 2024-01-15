@@ -1,43 +1,63 @@
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
 
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from apps.wallets.models import UserWallet, Chain
+from .utils import get_or_create_user 
+
+from rest_framework_simplejwt.tokens import RefreshToken
+from django.middleware import csrf
+
+
+def get_tokens_for_user(user):
+    refresh = RefreshToken.for_user(user)
+        
+    return {
+        'refresh': str(refresh),
+        'access': str(refresh.access_token),
+    }
+
+class LoginView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request, format=None) -> Response:
+
+        data = request.data
+
+        if not (
+            (chain_id := data.get('chain_id')) and
+            (address := data.get('address'))
+        ):
+            return Response({'error': 'please provide "chain id" and "address" in the POST body'})
+
+        user = get_or_create_user(
+            chain_id,
+            address
+        )
+
+        if user.is_active:
+            response = Response()
+            data = get_tokens_for_user(user)
+            response.set_cookie(
+                key = settings.SIMPLE_JWT['AUTH_COOKIE'], 
+                value = data["access"],
+                expires = settings.SIMPLE_JWT['ACCESS_TOKEN_LIFETIME'],
+                secure = settings.SIMPLE_JWT['AUTH_COOKIE_SECURE'],
+                httponly = settings.SIMPLE_JWT['AUTH_COOKIE_HTTP_ONLY'],
+                samesite = settings.SIMPLE_JWT['AUTH_COOKIE_SAMESITE']
+            )
+            csrf.get_token(request)
+            response.data = {"detail": "OK", "data": data}
+            return response
+        else:
+            return Response({"detail": "This account is not active!"}, status=status.HTTP_404_NOT_FOUND)
 
 
 User = get_user_model()
-
-
-@csrf_exempt
-def auth_view(request) -> JsonResponse:
-    chain_id = request.GET.get('chain_id')
-    address = request.GET.get('address')
-
-    if not (chain_id and address):
-        return JsonResponse({'error': 'please provide "chain id" and "address" in the POST body'})
-
-    chain = Chain.objects.filter(chain_id=chain_id).first() 
-    wallet = UserWallet.objects.filter(hash=address).first()
-    user = None
-
-    if not chain:
-        chain = Chain.objects.create(chain_id=chain_id)
-
-    if not wallet:
-        user = User.objects.create()
-        user.username = f'user{user.id}'
-        user.save()
-        wallet = UserWallet.objects.create(hash=address, chain=chain, user=user)
-
-    if not user:
-        user = User.objects.filter(wallets=wallet).first()
-
-    refresh = RefreshToken.for_user(user)
-
-    return JsonResponse({
-        'refresh': str(refresh),
-        'access': str(refresh.access_token),
-    })
