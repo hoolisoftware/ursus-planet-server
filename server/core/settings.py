@@ -30,6 +30,8 @@ DEBUG = True
 ALLOWED_HOSTS = ['ursasplanet.com', 'api.ursasplanet.com', 'localhost']
 CSRF_TRUSTED_ORIGINS = ['https://ursasplanet.com', 'https://api.ursasplanet.com', 'http://localhost:3000']
 CORS_ALLOWED_ORIGINS = ['https://ursasplanet.com', 'https://api.ursasplanet.com', 'http://localhost:3000']
+CORS_ORIGIN_WHITELIST = ('http://localhost:3000',)
+CORS_ALLOW_CREDENTIALS = True
 
 
 # Application definition
