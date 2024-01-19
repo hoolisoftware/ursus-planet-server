@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
 
+from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
@@ -15,6 +16,11 @@ from .utils import get_or_create_user
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.middleware import csrf
 
+from apps.wallets.models import UserWallet, Chain
+
+
+User = get_user_model()
+
 
 def get_tokens_for_user(user):
     refresh = RefreshToken.for_user(user)
@@ -25,7 +31,7 @@ def get_tokens_for_user(user):
     }
 
 class LoginView(APIView):
-    permission_classes = [AllowAny]
+    authentication_classes = []
 
     def post(self, request, format=None) -> Response:
 
@@ -42,6 +48,7 @@ class LoginView(APIView):
             address
         )
 
+        print(user)
         if user.is_active:
             response = Response()
             data = get_tokens_for_user(user)
