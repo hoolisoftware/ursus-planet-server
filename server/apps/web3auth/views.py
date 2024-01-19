@@ -67,4 +67,10 @@ class LoginView(APIView):
             return Response({"detail": "This account is not active!"}, status=status.HTTP_404_NOT_FOUND)
 
 
-User = get_user_model()
+class LogoutView(APIView):
+
+    def post(self, request, format=None) -> Response :
+        response = Response()
+        response.delete_cookie('access_token')
+        response.data = {}
+        return response
