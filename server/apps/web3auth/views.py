@@ -32,6 +32,7 @@ def get_tokens_for_user(user):
 
 class LoginView(APIView):
     authentication_classes = []
+    permission_classes = []
 
     def post(self, request, format=None) -> Response:
 
@@ -74,3 +75,10 @@ class LogoutView(APIView):
         response.delete_cookie('access_token')
         response.data = {}
         return response
+
+
+class GithubOAuthCallbackView(APIView):
+
+    def get(self, request):
+        print(request)
+        return Response({})

@@ -52,7 +52,8 @@ INSTALLED_APPS = [
     'apps.users',
     'apps.projects',
     'apps.wallets',
-    'apps.web3auth'
+    'apps.web3auth',
+    'apps.socials'
 ]
 
 MIDDLEWARE = [
@@ -150,7 +151,9 @@ AUTH_USER_MODEL = 'users.User'
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
-    'DEFAULT_PERMISSION_CLASSES': [],
+    'DEFAULT_PERMISSION_CLASSES': [
+        # 'rest_framework.permissions.IsAuthenticated',
+    ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
         # 'rest_framework.authentication.SessionAuthentication',
         # 'rest_framework.authentication.BasicAuthentication',
@@ -169,3 +172,18 @@ SIMPLE_JWT = {
 }
 
 OPTIMIZED_IMAGE_METHOD = 'pillow'
+
+
+EMAIL_HOST = 'mail.privateemail.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'support@ursasplanet.com'
+EMAIL_HOST_PASSWORD = '8bgX4q9EB6fAUYrQrwis514QSMhw6GrHDcBgonKk6ZP4'
+EMAIL_USE_SSL = True
+
+
+GITHUB_CLIENT_ID = 'Iv1.ceba5cde6dfa0cb8'
+GITHUB_SECRET_KEY = '7673bdcf5aa691f5aff2ecea22ad5e4e4d663e69'
+
+DISCORD_CLIENT_ID = '1198777405234499704'
+DISCORD_SECRET_KEY = 'y7O2v8zHKKK3UCUB8uYjIT34252PndiY'
+DISCORD_REDIRECT_URI = 'http://localhost:3000/settings/?auth=discord'
