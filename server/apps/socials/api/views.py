@@ -6,6 +6,7 @@ from urllib.parse import urlparse
 import requests
 import orjson
 
+from core.utils import to_base64
 from .. import models
 from . import exceptions
 from . import utils
@@ -13,7 +14,8 @@ from . import utils
 
 SUPPORTED_SOCIALS = [
     'github',
-    'discord'
+    'discord',
+    'x'
 ]
 
 
@@ -44,6 +46,8 @@ class SocialsAuthorizeAV(views.APIView):
             self._create_or_update_account(utils.get_github_username(code), models.SocialAccountGithub)
         elif social == 'discord':
             self._create_or_update_account(utils.get_discord_username(code), models.SocialAccountDiscord)            
+        elif social == 'x':
+            self._create_or_update_account(utils.get_x_username(code), models.SocialAccountX)            
 
         return Response({'status': 'ok'})
 
