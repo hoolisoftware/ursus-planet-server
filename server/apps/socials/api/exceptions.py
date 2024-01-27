@@ -1,6 +1,24 @@
 from rest_framework.exceptions import APIException
 
 
+class BotTokenNotProvided(APIException):
+    status_code = 403
+    default_detail = 'Please provide bot token'
+    default_code = 'bot_token_not_provided'
+
+
+class UUIDnUsernameNotProvided(APIException):
+    status_code = 400
+    default_detail = 'Please provide uuid and username'
+    default_code = 'invalid_data'
+
+
+class UUIDInvalid(APIException):
+    status_code = 400
+    default_detail = 'Invalid uuid'
+    default_code = 'invalid_uuid'
+
+
 class AccountAlreadyTaken(APIException):
     status_code = 403
     default_detail = 'This social account is already associated with another user.'
@@ -15,7 +33,7 @@ class AccountNotFound(APIException):
 
 class SomethingWentWrong(APIException):
     status_code = 400
-    default_detail = 'Something went wrong, try again.'
+    default_detail = 'Something went wrong, try again'
     default_code = 'something_went_wrong'
 
 

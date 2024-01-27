@@ -29,5 +29,11 @@ class SocialAccountTelegram(SocialAccountBase):
     pass
 
 
+class SocialAccountTelegramCode(models.Model):
+    username = models.TextField(unique=True)
+    uuid = models.UUIDField()
+    datetime_created = models.DateTimeField(auto_now_add=True)
+
+
 class SocialAccountGithub(SocialAccountBase):
     pass

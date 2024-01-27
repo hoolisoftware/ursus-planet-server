@@ -14,27 +14,31 @@ from pathlib import Path
 from datetime import timedelta
 
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-$+eyrm&&gge&$jn^jh%n^eess%xuhj$ifqym+i1nxu_#jtxdh='
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['ursasplanet.com', 'api.ursasplanet.com', 'localhost']
-CSRF_TRUSTED_ORIGINS = ['https://ursasplanet.com', 'https://api.ursasplanet.com', 'http://localhost:3000']
-CORS_ALLOWED_ORIGINS = ['https://ursasplanet.com', 'https://api.ursasplanet.com', 'http://localhost:3000']
-CORS_ORIGIN_WHITELIST = ('http://localhost:3000',)
+ALLOWED_HOSTS = ['ursasplanet.com', 'api.ursasplanet.com', 'localhost', 'leks.hooli.xyz']
+CSRF_TRUSTED_ORIGINS = [
+    'https://ursasplanet.com',
+    'https://api.ursasplanet.com',
+    'http://localhost:3000',
+    'http://leks.hooli.xyz:3000']
+CORS_ALLOWED_ORIGINS = [
+    'https://ursasplanet.com',
+    'https://api.ursasplanet.com',
+    'http://localhost:3000',
+    'http://leks.hooli.xyz:3000'
+]
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:3000',
+    'http://leks.hooli.xyz:3000'
+)
 CORS_ALLOW_CREDENTIALS = True
 
-
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -88,9 +92,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'core.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -99,8 +100,6 @@ DATABASES = {
 }
 
 
-# Password validation
-# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -118,8 +117,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/5.0/topics/i18n/
 
 LANGUAGE_CODE = 'ru'
 
@@ -130,17 +127,12 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
-
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR/'static'
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR/'media'
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -163,8 +155,8 @@ REST_FRAMEWORK = {
 
 SIMPLE_JWT = {
     'AUTH_COOKIE': 'access_token',  
-    'AUTH_COOKIE_DOMAIN': None,     
-    'AUTH_COOKIE_SECURE': False,    
+    'AUTH_COOKIE_DOMAIN': 'leks.hooli.xyz',     
+    'AUTH_COOKIE_SECURE': False,
     'AUTH_COOKIE_HTTP_ONLY' : True, 
     'AUTH_COOKIE_PATH': '/',        
     'AUTH_COOKIE_SAMESITE': 'Lax',  
@@ -181,13 +173,18 @@ EMAIL_HOST_PASSWORD = '8bgX4q9EB6fAUYrQrwis514QSMhw6GrHDcBgonKk6ZP4'
 EMAIL_USE_SSL = True
 
 
+SOCIAL_REDIRECT_URI_PREFIX = 'http://leks.hooli.xyz:3000/settings/?auth='
+
 GITHUB_CLIENT_ID = 'Iv1.ceba5cde6dfa0cb8'
 GITHUB_SECRET_KEY = '7673bdcf5aa691f5aff2ecea22ad5e4e4d663e69'
+GITHUB_REDIRECT_URI = SOCIAL_REDIRECT_URI_PREFIX + 'github'
 
 DISCORD_CLIENT_ID = '1198777405234499704'
 DISCORD_SECRET_KEY = 'y7O2v8zHKKK3UCUB8uYjIT34252PndiY'
-DISCORD_REDIRECT_URI = 'http://localhost:3000/settings/?auth=discord'
+DISCORD_REDIRECT_URI = SOCIAL_REDIRECT_URI_PREFIX + 'discord'
 
 X_CLIENT_ID = 'RlA5clc1N3ZMb01uVlVObk5ycFc6MTpjaQ'
 X_CLIENT_SECRET = 'yG5LrvQ3Gwz2XzmX6AU7PiM0PBA--4vfL8kTbmwUPVvL496TSa'
-X_REDIRECT_URI = 'http://leks.hooli.xyz'
+X_REDIRECT_URI = SOCIAL_REDIRECT_URI_PREFIX + 'x'
+
+TELEGRAM_BOT_TOKEN = '6505934697:AAErrCETR6czcoo1BRh2lsQO4Buf3fzDUZM'

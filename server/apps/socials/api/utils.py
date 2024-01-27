@@ -23,7 +23,6 @@ def get_x_username(code: str) -> str :
             'code': code
         }
     )
-    print(to_base64(f"{settings.X_CLIENT_ID}:{settings.X_CLIENT_SECRET}"))
 
     if 'error' in response_access_token.text:
         raise exceptions.BadCodeProvided    

@@ -27,6 +27,15 @@ class SocialAccountTelegramAdmin(admin.ModelAdmin):
     )
 
 
+@admin.register(models.SocialAccountTelegramCode)
+class SocialAccountTelegramCodeAdmin(admin.ModelAdmin):
+    list_display = (
+        'username',
+        'uuid',
+        'datetime_created'
+    )
+
+
 @admin.register(models.SocialAccountGithub)
 class SocialAccountGithubAdmin(admin.ModelAdmin):
     list_display = (
