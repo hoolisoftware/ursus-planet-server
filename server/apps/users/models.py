@@ -57,3 +57,10 @@ class User(AbstractUser):
 
     def __str__(self):
         return f"{self.username}({self.id})"
+
+
+class UserEmailCode(models.Model):
+    datetime_created = models.DateTimeField(auto_now_add=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    email = models.EmailField()
+    code = models.CharField(max_length=6)

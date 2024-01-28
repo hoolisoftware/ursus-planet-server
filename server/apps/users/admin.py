@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import User
+from .models import User, UserEmailCode
 from apps.wallets.models import UserWallet
 
 
@@ -18,4 +18,14 @@ class UserAdmin(admin.ModelAdmin):
     search_fields = (
         'username',
         'email'
+    )
+
+
+@admin.register(UserEmailCode)
+class UserEmailCodeAdmin(admin.ModelAdmin):
+    list_display = (
+        'user',
+        'email',
+        'code',
+        'datetime_created'
     )
