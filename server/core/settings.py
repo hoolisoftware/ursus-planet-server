@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django_celery_results',
+    'django_celery_beat',
     'rest_framework',
     'rest_framework_simplejwt',
     "corsheaders",
@@ -141,6 +143,20 @@ REST_FRAMEWORK = {
         'apps.web3auth.authenticate.CustomAuthentication',
     )
 }
+
+CELERY_TIMEZONE = "Australia/Tasmania"
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_CACHE_BACKEND = 'django-cache'
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'my_cache_table',
+    }
+}
+
 
 SIMPLE_JWT = {
     'AUTH_COOKIE': 'access_token',  
