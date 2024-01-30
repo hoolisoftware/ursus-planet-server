@@ -2,6 +2,7 @@ from random import randint
 
 from django.contrib.auth import get_user_model
 from django.core.mail import send_mail
+from django.template.loader import render_to_string
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import UpdateAPIView
@@ -53,7 +54,8 @@ class UserChangeEmail(APIView):
         send_mail(
             subject="Ursas email verification",
             from_email='support@ursasplanet.com',
-            message=f"Here is your code {object.code}",
+            html_message=render_to_string('email-verify.html', {'code': object.code}),
+            message=render_to_string('email-verify.txt', {'code': object.code}),
             recipient_list=[object.email],
             fail_silently=False,
         )

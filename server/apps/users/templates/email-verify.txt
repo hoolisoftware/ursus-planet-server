@@ -1,0 +1,6 @@
+We see you have registered an account on Ursas Planet, Welcome!
+
+Please use the following code to verify your email:
+{{code}}
+
+Have a nice day!
