@@ -67,14 +67,14 @@ def send_notifications(period: str):
     )
     send_mail(
         subject="Ursas cabinet email notification",
-        from_email=None,
+        from_email='support@ursasplanet.com',
         message=f"Here is your code",
         recipient_list=[user.email for user in cabinet_list],
         fail_silently=False,
     )
     send_mail(
         subject="Ursas project email notification",
-        from_email=None,
+        from_email='support@ursasplanet.com',
         message=f"Here is your code",
         recipient_list=[user.email for user in project_list],
         fail_silently=False,

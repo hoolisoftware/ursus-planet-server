@@ -52,7 +52,7 @@ class UserChangeEmail(APIView):
 
         send_mail(
             subject="Ursas email verification",
-            from_email=None,
+            from_email='support@ursasplanet.com',
             message=f"Here is your code {object.code}",
             recipient_list=[object.email],
             fail_silently=False,
