@@ -21,7 +21,7 @@ class User(AbstractUser):
         max_length=64,
         validators=[
             RegexValidator(
-                regex=r'^[A-Za-z][\w.@+-]{4,15}+\Z$',
+                regex=r'^[A-Za-z]{1}[\w.@+-]{4,15}+\Z$',
                 message = (
                     "Enter a valid username. This value may contain only letters, "
                     "numbers, and @/./+/-/_ characters, start from letter, and have length between 4 and 16 characters."
