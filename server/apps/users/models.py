@@ -42,6 +42,7 @@ class User(AbstractUser):
         null=True,
         blank=True
     )
+    points = models.PositiveIntegerField(default=0)
 
     # notifications settings
     cabinet_notifications_email = models.BooleanField(default=False)
