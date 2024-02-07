@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractUser
 from image_optimizer.fields import OptimizedImageField
 
 from .managers import UserManager
+from .utils import random_hex
 
 
 class User(AbstractUser):
@@ -53,6 +54,13 @@ class User(AbstractUser):
     project_notifications_frequency = models.CharField(choices=FREQUENCY_CHOICES, max_length=64, default='fast')
 
     objects = UserManager()
+
+    color1 = models.CharField(max_length=7, default=random_hex)
+    color2 = models.CharField(max_length=7, default=random_hex)
+    color3 = models.CharField(max_length=7, default=random_hex)
+    color4 = models.CharField(max_length=7, default=random_hex)
+    color5 = models.CharField(max_length=7, default=random_hex)
+
     
     USERNAME_FIELD = 'id'
 
