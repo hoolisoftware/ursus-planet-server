@@ -162,7 +162,7 @@ SIMPLE_JWT = {
     'AUTH_COOKIE_HTTP_ONLY' : True, 
     'AUTH_COOKIE_PATH': '/',        
     'AUTH_COOKIE_SAMESITE': 'Lax',  
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60)
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=3)
 }
 
 OPTIMIZED_IMAGE_METHOD = 'pillow'
