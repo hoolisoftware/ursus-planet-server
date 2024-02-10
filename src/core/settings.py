@@ -54,7 +54,13 @@ INSTALLED_APPS = [
     'apps.projects',
     'apps.wallets',
     'apps.web3auth',
-    'apps.socials'
+    'apps.socials',
+
+    'apps.tasks',
+    'apps.tasks.socials.discord',
+    'apps.tasks.socials.twitter',
+    'apps.tasks.socials.telegram',
+    'apps.tasks.socials.github',
 ]
 
 MIDDLEWARE = [
