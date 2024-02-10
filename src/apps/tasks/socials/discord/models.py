@@ -1,9 +1,51 @@
 from django.db import models
 
-from apps.projects.models import Project
+from apps.tasks.models import Task, ProjectField
 
 
-class Task(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    title = models.TextField()
+class ServerMixin(models.Model):
+    link_server = models.URLField()
+
+    class Meta:
+        abstract = True
+
+
+class ChannelMixin(models.Model):
+    link_channel = models.URLField()
+
+    class Meta:
+        abstract = True
+
+
+class PostMixin(models.Model):
+    link_post = models.URLField()
+
+    class Meta:
+        abstract = True
+
     
+class ServerSubscribeTask(ServerMixin, Task):
+    project = ProjectField('discord_server_subscribe')
+
+class ServerRoleTask(ServerMixin, Task):
+    project = ProjectField('discord_server_role')
+    role = models.CharField(max_length=64)
+
+
+class ServerBoostTask(ServerMixin, Task):
+    project = ProjectField('discord_server_boost')
+
+
+class ChannelMessageTask(ChannelMixin, Task):
+    project = ProjectField('discord_channel_message')
+
+
+class ChannelMessageImageTask(ChannelMixin, Task):
+    project = ProjectField('discord_channel_message_image')
+    image = models.ImageField(upload_to='tasks/discord/channel_message_image_task')
+
+
+class PostReactionTask(PostMixin, Task):
+    project = ProjectField('discord_channel_reaction')
+    rn_postfix = 'channel_message'
+
