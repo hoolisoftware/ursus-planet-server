@@ -6,6 +6,7 @@ class EmailNotProvidedException(APIException):
     default_detail = 'Please provide email'
     default_code = 'email_not_provided'
 
+
 class EmailAlreadyTaken(APIException):
     status_code = 400
     default_detail = 'Email already taken'
@@ -16,6 +17,7 @@ class CodeNotProvided(APIException):
     status_code = 400
     default_detail = 'Code not provided'
     default_code = 'code_not_provided'
+
 
 class BadCodeProvided(APIException):
     status_code = 400

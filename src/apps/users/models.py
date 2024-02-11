@@ -1,4 +1,3 @@
-from django.core.validators import RegexValidator
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -6,9 +5,15 @@ from image_optimizer.fields import OptimizedImageField
 
 from .managers import UserManager
 from .utils import random_hex
+from .validators import username_validator
 
 
 class User(AbstractUser):
+
+    objects = UserManager()
+
+    USERNAME_FIELD = 'id'
+
     FREQUENCY_CHOICES = (
         ('fast', 'As fast as possible'),
         ('hour', 'Every hour'),
@@ -17,25 +22,12 @@ class User(AbstractUser):
         ('month', 'Every month')
     )
 
-    # TODO: add username validation
     username = models.CharField(
         max_length=64,
-        validators=[
-            RegexValidator(
-                regex=r'^[A-Za-z]{1}[\w.@+-]{4,15}\Z$',
-                message = (
-                    "Enter a valid username. This value may contain only letters, "
-                    "numbers, and @/./+/-/_ characters, start from letter, and have length between 4 and 16 characters."
-                )
-            )
-        ],
+        validators=[username_validator],
         blank=True,
         null=True
     )
-    email = models.EmailField(blank=True, null=True)
-    password = models.TextField(blank=True, null=True)
-    first_name = None
-    last_name = None
     avatar = OptimizedImageField(
         upload_to='users/user/avatar/',
         optimized_image_output_size=(500, 500),
@@ -43,26 +35,35 @@ class User(AbstractUser):
         null=True,
         blank=True
     )
+    email = models.EmailField(blank=True, null=True)
+    password = models.TextField(blank=True, null=True)
+    first_name = None
+    last_name = None
     points = models.PositiveIntegerField(default=0)
 
-    # notifications settings
+    # cabinet notifications settings
     cabinet_notifications_email = models.BooleanField(default=False)
     cabinet_notifications_account = models.BooleanField(default=False)
-    cabinet_notifications_frequency = models.CharField(choices=FREQUENCY_CHOICES, max_length=64, default='fast')
+    cabinet_notifications_frequency = models.CharField(
+        choices=FREQUENCY_CHOICES,
+        max_length=64,
+        default='fast'
+    )
+    # project notifications settings
     project_notifications_email = models.BooleanField(default=False)
     project_notifications_account = models.BooleanField(default=False)
-    project_notifications_frequency = models.CharField(choices=FREQUENCY_CHOICES, max_length=64, default='fast')
+    project_notifications_frequency = models.CharField(
+        choices=FREQUENCY_CHOICES,
+        max_length=64,
+        default='fast'
+    )
 
-    objects = UserManager()
-
+    # default avatar colors
     color1 = models.CharField(max_length=7, default=random_hex)
     color2 = models.CharField(max_length=7, default=random_hex)
     color3 = models.CharField(max_length=7, default=random_hex)
     color4 = models.CharField(max_length=7, default=random_hex)
     color5 = models.CharField(max_length=7, default=random_hex)
-
-    
-    USERNAME_FIELD = 'id'
 
     def __str__(self):
         return f"{self.username}({self.id})"

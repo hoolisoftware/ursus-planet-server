@@ -73,10 +73,10 @@ admin_tasks.register(models.TweetWatchVideoTask, TweetWatchVideoTaskAdmin)
 admin_tasks.register(models.TweetTask, TweetTaskAdmin)
 
 
-admin_platform_tasks.register(models.ProfileFollowTask, ProfileFollowTaskPlatformAdmin)
-admin_platform_tasks.register(models.TweetRepostTask, TweetRepostTaskPlatformAdmin)
+admin_platform_tasks.register(models.ProfileFollowTask, ProfileFollowTaskPlatformAdmin)  # NOQA
+admin_platform_tasks.register(models.TweetRepostTask, TweetRepostTaskPlatformAdmin)  # NOQA
 admin_platform_tasks.register(models.TweetLikeTask, TweetLikeTaskPlatformAdmin)
-admin_platform_tasks.register(models.TweetCommentExactTask, TweetCommentExactTaskPlatformAdmin)
-admin_platform_tasks.register(models.TweetCommentTask, TweetCommentTaskPlatformAdmin)
-admin_platform_tasks.register(models.TweetWatchVideoTask, TweetWatchVideoTaskPlatformAdmin)
+admin_platform_tasks.register(models.TweetCommentExactTask, TweetCommentExactTaskPlatformAdmin)  # NOQA
+admin_platform_tasks.register(models.TweetCommentTask, TweetCommentTaskPlatformAdmin)  # NOQA
+admin_platform_tasks.register(models.TweetWatchVideoTask, TweetWatchVideoTaskPlatformAdmin)  # NOQA
 admin_platform_tasks.register(models.TweetTask, TweetTaskPlatformAdmin)

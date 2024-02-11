@@ -2,38 +2,39 @@ from pathlib import Path
 from datetime import timedelta
 import environ
 
+
 env = environ.Env()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 environ.Env.read_env(BASE_DIR/'.env')
 
 
-SECRET_KEY = 'django-insecure-$+eyrm&&gge&$jn^jh%n^eess%xuhj$ifqym+i1nxu_#jtxdh='
+SECRET_KEY = 'django-insecure-$+eyrm&&gge&$jn^jh%n^eess%xuhj$ifqym+i1nxu_#jtxdh='  # NOQA
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['ursasplanet.com', 'api.ursasplanet.com', 'localhost', 'leks.hooli.xyz']
-CSRF_TRUSTED_ORIGINS = [
-    'https://ursasplanet.com',
-    'https://sprint.ursasplanet.com',
-    'https://api.ursasplanet.com',
+HOSTS = [
+    'ursasplanet.com',
+    'api.ursasplanet.com',
+    'localhost',
+    'leks.hooli.xyz'
+]
 
-    'http://localhost:3000',
-    'http://leks.hooli.xyz:3000']
-CORS_ALLOWED_ORIGINS = [
+ORIGINS = [
     'https://ursasplanet.com',
     'https://sprint.ursasplanet.com',
     'https://api.ursasplanet.com',
     'http://localhost:3000',
     'http://leks.hooli.xyz:3000'
 ]
-CORS_ORIGIN_WHITELIST = (
-    'http://localhost:3000',
-    'http://leks.hooli.xyz:3000'
-    'https://sprint.ursasplanet.com',
-)
-CORS_ALLOW_CREDENTIALS = True
 
+ALLOWED_HOSTS = HOSTS
+
+CSRF_TRUSTED_ORIGINS = ORIGINS
+CORS_ALLOWED_ORIGINS = ORIGINS
+CORS_ORIGIN_WHITELIST = ORIGINS
+
+CORS_ALLOW_CREDENTIALS = True
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -105,16 +106,16 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',  # NOQA
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',  # NOQA
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',  # NOQA
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',  # NOQA
     },
 ]
 
@@ -142,7 +143,7 @@ AUTH_USER_MODEL = 'users.User'
 
 
 REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',  # NOQA
     'PAGE_SIZE': 10,
     'DEFAULT_PERMISSION_CLASSES': [
         # 'rest_framework.permissions.IsAuthenticated',
@@ -162,12 +163,12 @@ CELERY_CACHE_BACKEND = 'django-cache'
 
 
 SIMPLE_JWT = {
-    'AUTH_COOKIE': 'access_token',  
-    'AUTH_COOKIE_DOMAIN': 'leks.hooli.xyz',     
+    'AUTH_COOKIE': 'access_token',
+    'AUTH_COOKIE_DOMAIN': 'leks.hooli.xyz',
     'AUTH_COOKIE_SECURE': False,
-    'AUTH_COOKIE_HTTP_ONLY' : True, 
-    'AUTH_COOKIE_PATH': '/',        
-    'AUTH_COOKIE_SAMESITE': 'Lax',  
+    'AUTH_COOKIE_HTTP_ONLY': True,
+    'AUTH_COOKIE_PATH': '/',
+    'AUTH_COOKIE_SAMESITE': 'Lax',
     'ACCESS_TOKEN_LIFETIME': timedelta(days=3)
 }
 

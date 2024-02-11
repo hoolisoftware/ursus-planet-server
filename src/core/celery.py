@@ -8,19 +8,14 @@ from django.contrib.auth import get_user_model
 from django.core.mail import send_mail
 
 
-# Set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
+
 
 app = Celery('core')
 logger = get_task_logger(__name__)
 
-# Using a string here means the worker doesn't have to serialize
-# the configuration object to child processes.
-# - namespace='CELERY' means all celery-related configuration keys
-#   should have a `CELERY_` prefix.
-app.config_from_object('django.conf:settings', namespace='CELERY')
 
-# Load task modules from all registered Django apps.
+app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()
 
 
@@ -68,42 +63,26 @@ def send_notifications(period: str):
     send_mail(
         subject="Ursas cabinet email notification",
         from_email='support@ursasplanet.com',
-        message=f"Here is your code",
+        message="Here is your code",
         recipient_list=[user.email for user in cabinet_list],
         fail_silently=False,
     )
     send_mail(
         subject="Ursas project email notification",
         from_email='support@ursasplanet.com',
-        message=f"Here is your code",
+        message="Here is your code",
         recipient_list=[user.email for user in project_list],
         fail_silently=False,
     )
-    return [[user.email for user in cabinet_list], [user.email for user in project_list]]
+    return [
+        [user.email for user in cabinet_list],
+        [user.email for user in project_list]
+    ]
 
 
 @app.task(bind=True, ignore_result=True)
 def debug_task(self):
     print(f'Request: {self.request!r}')
 
-
-# app.conf.beat_schedule = {
-#     'notifications-hour': {
-#         'task': 'tasks.send_notifications',
-#         'schedule': 1,
-#     },
-#     'notifications-day': {
-#         'task': 'tasks.send_notifications',
-#         'schedule': 10,
-#     },
-#     'notifications-week': {
-#         'task': 'tasks.send_notifications',
-#         'schedule': 10,
-#     },
-#     'notifications-month': {
-#         'task': 'tasks.send_notifications',
-#         'schedule': 10,
-#     },
-# }
 
 app.conf.timezone = 'Africa/Abidjan'

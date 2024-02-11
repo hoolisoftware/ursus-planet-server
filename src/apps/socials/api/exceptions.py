@@ -21,7 +21,7 @@ class UUIDInvalid(APIException):
 
 class AccountAlreadyTaken(APIException):
     status_code = 403
-    default_detail = 'This social account is already associated with another user.'
+    default_detail = 'This social account is already associated with another user.'  # NOQA
     default_code = 'account_already_taken'
 
 

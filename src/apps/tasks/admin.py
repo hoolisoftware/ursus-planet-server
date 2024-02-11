@@ -1,10 +1,7 @@
 from django.contrib import admin
 from django.contrib.admin import AdminSite
 
-from apps.projects.models import Project
 from apps.projects.admin import ProjectAdmin
-from apps.users.models import User
-from apps.users.admin import UserAdmin
 
 from . import models
 
@@ -34,7 +31,7 @@ class TaskAdmin(admin.ModelAdmin):
     list_display = LIST_DISPLAY_COMMON
 
     def get_queryset(self, request):
-        return super(TaskAdmin, self).get_queryset(request).filter(project__isnull=False)
+        return super(TaskAdmin, self).get_queryset(request).filter(project__isnull=False)  # NOQA
 
 
 class TaskPlatformAdmin(admin.ModelAdmin):
@@ -42,7 +39,7 @@ class TaskPlatformAdmin(admin.ModelAdmin):
     exclude = ('project',)
 
     def get_queryset(self, request):
-        return super(TaskPlatformAdmin, self).get_queryset(request).filter(project__isnull=True)
+        return super(TaskPlatformAdmin, self).get_queryset(request).filter(project__isnull=True)  # NOQA
 
 
 class ProjectProxyAdmin(ProjectAdmin):

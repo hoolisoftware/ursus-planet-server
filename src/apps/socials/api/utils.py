@@ -7,14 +7,14 @@ from core.utils import to_base64
 from . import exceptions
 
 
-def get_x_username(code: str) -> str :
+def get_x_username(code: str) -> str:
 
     # access token request with given code
     response_access_token = requests.post(
         'https://api.twitter.com/2/oauth2/token',
         headers={
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': f'Basic {str(to_base64(f"{settings.X_CLIENT_ID}:{settings.X_CLIENT_SECRET}"))}'
+            'Authorization': f'Basic {str(to_base64(f"{settings.X_CLIENT_ID}:{settings.X_CLIENT_SECRET}"))}'  # NOQA
         },
         data={
             'grant_type': 'authorization_code',
@@ -25,20 +25,23 @@ def get_x_username(code: str) -> str :
     )
 
     if 'error' in response_access_token.text:
-        raise exceptions.BadCodeProvided    
+        raise exceptions.BadCodeProvided
 
-    # user request with requested access token 
-    response_user = requests.get('https://api.twitter.com/2/users/me', headers={
-        'Authorization': f'Bearer {orjson.loads(response_access_token.text)["access_token"]}',
-    })
+    # user request with requested access token
+    response_user = requests.get(
+        'https://api.twitter.com/2/users/me',
+        headers={
+            'Authorization': f'Bearer {orjson.loads(response_access_token.text)["access_token"]}',  # NOQA
+        }
+    )
 
     if response_user.status_code >= 401 and response_user.status_code < 500:
-            raise exceptions.SomethingWentWrong
+        raise exceptions.SomethingWentWrong
 
     return orjson.loads(response_user.text)['data']['username']
 
 
-def get_github_username(code: str) -> str :
+def get_github_username(code: str) -> str:
 
     # access token request with given code
     response_access_token = requests.post(
@@ -51,12 +54,15 @@ def get_github_username(code: str) -> str :
     )
 
     if 'error' in response_access_token.text:
-        raise exceptions.BadCodeProvided    
+        raise exceptions.BadCodeProvided
 
-    # user request with requested access token 
-    response_user = requests.get('https://api.github.com/user', headers={
-        'Authorization': f'Bearer {response_access_token.text.split("&")[0].split("=")[1]}',
-    })
+    # user request with requested access token
+    response_user = requests.get(
+        'https://api.github.com/user',
+        headers={
+            'Authorization': f'Bearer {response_access_token.text.split("&")[0].split("=")[1]}',  # NOQA
+        }
+    )
 
     if response_user.status_code == 401:
         raise exceptions.SomethingWentWrong
@@ -64,7 +70,7 @@ def get_github_username(code: str) -> str :
     return orjson.loads(response_user.text)['login']
 
 
-def get_discord_username(code: str) -> str :
+def get_discord_username(code: str) -> str:
 
     # access token request with given code
     response_access_token = requests.post(
@@ -80,13 +86,13 @@ def get_discord_username(code: str) -> str :
     )
 
     if 'error' in response_access_token.text:
-        raise exceptions.BadCodeProvided    
+        raise exceptions.BadCodeProvided
 
     # user request with requested access token
     response_user = requests.get(
         'https://discord.com/api/users/@me',
         headers={
-            'Authorization': f'Bearer {orjson.loads(response_access_token.text)["access_token"]}',
+            'Authorization': f'Bearer {orjson.loads(response_access_token.text)["access_token"]}',  # NOQA
         }
     )
 

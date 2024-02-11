@@ -1,5 +1,3 @@
-from django.contrib import admin
-
 from apps.tasks.admin import (
     TaskAdmin,
     TaskPlatformAdmin,
@@ -34,11 +32,10 @@ class RepositoryForkTaskPlatformAdmin(TaskPlatformAdmin):
     pass
 
 
-
 admin_tasks.register(models.ProfileFollowTask, ProfileFollowTaskAdmin)
 admin_tasks.register(models.RepositoryStarTask, RepositoryStarTaskAdmin)
 admin_tasks.register(models.RepositoryForkTask, RepositoryForkTaskAdmin)
 
-admin_platform_tasks.register(models.ProfileFollowTask, ProfileFollowTaskPlatformAdmin)
-admin_platform_tasks.register(models.RepositoryStarTask, RepositoryStarTaskPlatformAdmin)
-admin_platform_tasks.register(models.RepositoryForkTask, RepositoryForkTaskPlatformAdmin)
+admin_platform_tasks.register(models.ProfileFollowTask, ProfileFollowTaskPlatformAdmin)  # NOQA
+admin_platform_tasks.register(models.RepositoryStarTask, RepositoryStarTaskPlatformAdmin)  # NOQA
+admin_platform_tasks.register(models.RepositoryForkTask, RepositoryForkTaskPlatformAdmin)  # NOQA

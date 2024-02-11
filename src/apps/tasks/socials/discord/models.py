@@ -23,9 +23,10 @@ class PostMixin(models.Model):
     class Meta:
         abstract = True
 
-    
+
 class ServerSubscribeTask(ServerMixin, Task):
     project = ProjectField('discord_server_subscribe')
+
 
 class ServerRoleTask(ServerMixin, Task):
     project = ProjectField('discord_server_role')
@@ -47,4 +48,3 @@ class ChannelMessageImageTask(ChannelMixin, Task):
 class PostReactionTask(PostMixin, Task):
     project = ProjectField('discord_channel_reaction')
     rn_postfix = 'channel_message'
-

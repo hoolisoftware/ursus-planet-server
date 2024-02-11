@@ -48,15 +48,14 @@ class ChannelBoostTaskPlatformAdmin(TaskPlatformAdmin):
     pass
 
 
-
 admin_tasks.register(models.ChannelJoinTask, ChannelJoinTaskAdmin)
 admin_tasks.register(models.GroupJoinTask, GroupJoinTaskAdmin)
 admin_tasks.register(models.GroupMessageTask, GroupMessageTaskAdmin)
 admin_tasks.register(models.ChannelReactionTask, ChannelReactionTaskAdmin)
 admin_tasks.register(models.ChannelBoostTask, ChannelBoostTaskAdmin)
 
-admin_platform_tasks.register(models.ChannelJoinTask, ChannelJoinTaskPlatformAdmin)
-admin_platform_tasks.register(models.GroupJoinTask, GroupJoinTaskPlatformAdmin)
-admin_platform_tasks.register(models.GroupMessageTask, GroupMessageTaskPlatformAdmin)
-admin_platform_tasks.register(models.ChannelReactionTask, ChannelReactionTaskPlatformAdmin)
-admin_platform_tasks.register(models.ChannelBoostTask, ChannelBoostTaskPlatformAdmin)
+admin_platform_tasks.register(models.ChannelJoinTask, ChannelJoinTaskPlatformAdmin)  # NOQA
+admin_platform_tasks.register(models.GroupJoinTask, GroupJoinTaskPlatformAdmin)  # NOQA
+admin_platform_tasks.register(models.GroupMessageTask, GroupMessageTaskPlatformAdmin)  # NOQA
+admin_platform_tasks.register(models.ChannelReactionTask, ChannelReactionTaskPlatformAdmin)  # NOQA
+admin_platform_tasks.register(models.ChannelBoostTask, ChannelBoostTaskPlatformAdmin)  # NOQA

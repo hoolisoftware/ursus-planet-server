@@ -1,6 +1,5 @@
 from django.db import models
 
-from apps.users.models import User
 from apps.projects.models import Project
 
 
@@ -17,13 +16,13 @@ class ProjectProxy(Project):
         proxy = True
         verbose_name = 'Project'
         verbose_name_plural = 'Projects'
-        
+
 
 def ProjectField(related_name: str):
     return models.ForeignKey(
         ProjectProxy,
         on_delete=models.CASCADE,
         related_name=related_name,
-        blank=False, 
+        blank=False,
         null=True
     )

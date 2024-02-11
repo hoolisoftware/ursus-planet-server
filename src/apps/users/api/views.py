@@ -5,7 +5,6 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.generics import UpdateAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
@@ -22,7 +21,6 @@ class UserSelfMixin:
 
     def get_queryset(self):
         return User.objects.filter(id=self.request.user.id)
-
 
     def get_object(self):
         return User.objects.filter(id=self.request.user.id).first()
@@ -54,12 +52,12 @@ class UserChangeEmail(APIView):
         send_mail(
             subject="Ursas email verification",
             from_email='support@ursasplanet.com',
-            html_message=render_to_string('email-verify.html', {'code': object.code}),
-            message=render_to_string('email-verify.txt', {'code': object.code}),
+            html_message=render_to_string('email-verify.html', {'code': object.code}),  # NOQA
+            message=render_to_string('email-verify.txt', {'code': object.code}),  # NOQA
             recipient_list=[object.email],
             fail_silently=False,
         )
-        
+
         return Response({'success': 'ok'})
 
 
@@ -69,7 +67,7 @@ class UserVerifyEmail(APIView):
         if not (code := request.data.get('code')):
             raise exceptions.CodeNotProvided
 
-        if not (object := models.UserEmailCode.objects.filter(code=code, user=request.user).first()):
+        if not (object := models.UserEmailCode.objects.filter(code=code, user=request.user).first()):  # NOQA
             raise exceptions.BadCodeProvided
 
         request.user.email = object.email
