@@ -1,26 +1,44 @@
 from django.contrib import admin
 
 from apps.tasks.admin import (
-    LIST_DISPLAY_COMMON,
     TaskAdmin,
-    admin_tasks
+    TaskPlatformAdmin,
+    admin_tasks,
+    admin_platform_tasks
 )
 
 from . import models
 
 
 class ProfileFollowTaskAdmin(TaskAdmin):
-    list_display = LIST_DISPLAY_COMMON
+    pass
 
 
 class RepositoryStarTaskAdmin(TaskAdmin):
-    list_display = LIST_DISPLAY_COMMON
+    pass
 
 
 class RepositoryForkTaskAdmin(TaskAdmin):
-    list_display = LIST_DISPLAY_COMMON
+    pass
+
+
+class ProfileFollowTaskPlatformAdmin(TaskPlatformAdmin):
+    pass
+
+
+class RepositoryStarTaskPlatformAdmin(TaskPlatformAdmin):
+    pass
+
+
+class RepositoryForkTaskPlatformAdmin(TaskPlatformAdmin):
+    pass
+
 
 
 admin_tasks.register(models.ProfileFollowTask, ProfileFollowTaskAdmin)
 admin_tasks.register(models.RepositoryStarTask, RepositoryStarTaskAdmin)
 admin_tasks.register(models.RepositoryForkTask, RepositoryForkTaskAdmin)
+
+admin_platform_tasks.register(models.ProfileFollowTask, ProfileFollowTaskPlatformAdmin)
+admin_platform_tasks.register(models.RepositoryStarTask, RepositoryStarTaskPlatformAdmin)
+admin_platform_tasks.register(models.RepositoryForkTask, RepositoryForkTaskPlatformAdmin)

@@ -39,8 +39,9 @@ class TweetCommentTask(TweetMixin, Task):
 
 
 class TweetWatchVideoTask(TweetMixin, Task):
-    pass
+    project = ProjectField('twitter_tweet_watch_video')
 
 
 class TweetTask(Task):
+    project = ProjectField('twitter_tweet')
     text = models.TextField()

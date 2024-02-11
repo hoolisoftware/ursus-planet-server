@@ -24,6 +24,6 @@ def ProjectField(related_name: str):
         ProjectProxy,
         on_delete=models.CASCADE,
         related_name=related_name,
-        blank=True, 
+        blank=False, 
         null=True
     )

@@ -42,7 +42,6 @@ class ChannelMessageTask(ChannelMixin, Task):
 
 class ChannelMessageImageTask(ChannelMixin, Task):
     project = ProjectField('discord_channel_message_image')
-    image = models.ImageField(upload_to='tasks/discord/channel_message_image_task')
 
 
 class PostReactionTask(PostMixin, Task):

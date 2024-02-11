@@ -1,28 +1,52 @@
-from django.contrib import admin
-
 from apps.tasks.admin import (
-    LIST_DISPLAY_COMMON,
     TaskAdmin,
-    admin_tasks
+    TaskPlatformAdmin,
+    admin_tasks,
+    admin_platform_tasks
 )
 
 from . import models
 
 
-class ChannelJoinTaskAdmin(admin.ModelAdmin):
-    list_display = LIST_DISPLAY_COMMON
+class ChannelJoinTaskAdmin(TaskAdmin):
+    pass
 
-class GroupJoinTaskAdmin(admin.ModelAdmin):
-    list_display = LIST_DISPLAY_COMMON
 
-class GroupMessageTaskAdmin(admin.ModelAdmin):
-    list_display = LIST_DISPLAY_COMMON
+class GroupJoinTaskAdmin(TaskAdmin):
+    pass
 
-class ChannelReactionTaskAdmin(admin.ModelAdmin):
-    list_display = LIST_DISPLAY_COMMON
 
-class ChannelBoostTaskAdmin(admin.ModelAdmin):
-    list_display = LIST_DISPLAY_COMMON
+class GroupMessageTaskAdmin(TaskAdmin):
+    pass
+
+
+class ChannelReactionTaskAdmin(TaskAdmin):
+    pass
+
+
+class ChannelBoostTaskAdmin(TaskAdmin):
+    pass
+
+
+class ChannelJoinTaskPlatformAdmin(TaskPlatformAdmin):
+    pass
+
+
+class GroupJoinTaskPlatformAdmin(TaskPlatformAdmin):
+    pass
+
+
+class GroupMessageTaskPlatformAdmin(TaskPlatformAdmin):
+    pass
+
+
+class ChannelReactionTaskPlatformAdmin(TaskPlatformAdmin):
+    pass
+
+
+class ChannelBoostTaskPlatformAdmin(TaskPlatformAdmin):
+    pass
+
 
 
 admin_tasks.register(models.ChannelJoinTask, ChannelJoinTaskAdmin)
@@ -30,3 +54,9 @@ admin_tasks.register(models.GroupJoinTask, GroupJoinTaskAdmin)
 admin_tasks.register(models.GroupMessageTask, GroupMessageTaskAdmin)
 admin_tasks.register(models.ChannelReactionTask, ChannelReactionTaskAdmin)
 admin_tasks.register(models.ChannelBoostTask, ChannelBoostTaskAdmin)
+
+admin_platform_tasks.register(models.ChannelJoinTask, ChannelJoinTaskPlatformAdmin)
+admin_platform_tasks.register(models.GroupJoinTask, GroupJoinTaskPlatformAdmin)
+admin_platform_tasks.register(models.GroupMessageTask, GroupMessageTaskPlatformAdmin)
+admin_platform_tasks.register(models.ChannelReactionTask, ChannelReactionTaskPlatformAdmin)
+admin_platform_tasks.register(models.ChannelBoostTask, ChannelBoostTaskPlatformAdmin)
