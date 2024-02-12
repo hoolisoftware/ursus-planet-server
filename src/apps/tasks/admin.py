@@ -47,7 +47,87 @@ class ProjectProxyAdmin(ProjectAdmin):
     autocomplete_fields = []
 
 
+class PlatformTasksAdmin(admin.ModelAdmin):
+    list_display = (
+        'task_social_reward',
+        'task_social_is_active',
+        'task_email_reward',
+        'task_email_is_active',
+        'task_username_reward',
+        'task_username_is_active',
+        'task_domain_id_reward',
+        'task_domain_id_is_active',
+        'task_avatar_reward',
+        'task_avatar_is_active',
+        'task_nft_avatar_reward',
+        'task_nft_avatar_is_active',
+        'task_ursas_collection_nft_avatar_reward',
+        'task_ursas_collection_nft_avatar_is_active',
+        'task_wallet_reward',
+        'task_wallet_is_active',
+        'task_chain_reward',
+        'task_chain_is_active',
+        'task_referral_reward',
+        'task_referral_is_active',
+        'task_email_notification_reward',
+        'task_email_notification_is_active',
+        'task_cabinet_notification_reward',
+        'task_cabinet_notification_is_active',
+    )
+    fields = (
+        (
+            'task_social_reward',
+            'task_social_is_active'
+        ),
+        (
+            'task_email_reward',
+            'task_email_is_active'
+        ),
+        (
+            'task_username_reward',
+            'task_username_is_active'
+        ),
+        (
+            'task_domain_id_reward',
+            'task_domain_id_is_active'
+        ),
+        (
+            'task_avatar_reward',
+            'task_avatar_is_active'
+        ),
+        (
+            'task_nft_avatar_reward',
+            'task_nft_avatar_is_active'
+        ),
+        (
+            'task_ursas_collection_nft_avatar_reward',
+            'task_ursas_collection_nft_avatar_is_active'
+        ),
+        (
+            'task_wallet_reward',
+            'task_wallet_is_active'
+        ),
+        (
+            'task_chain_reward',
+            'task_chain_is_active'
+        ),
+        (
+            'task_referral_reward',
+            'task_referral_is_active'
+        ),
+        (
+            'task_email_notification_reward',
+            'task_email_notification_is_active'
+        ),
+        (
+            'task_cabinet_notification_reward',
+            'task_cabinet_notification_is_active'
+        ),
+    )
+
+
 admin_tasks = TaskAdminSite(name='admin_tasks')
 admin_platform_tasks = TaskAdminSite(name='admin_platform_tasks')
 
 admin_tasks.register(models.ProjectProxy, ProjectProxyAdmin)
+admin_platform_tasks.register(models.PlatformTasks, PlatformTasksAdmin)
