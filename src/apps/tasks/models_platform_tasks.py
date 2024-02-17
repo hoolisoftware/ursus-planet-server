@@ -8,15 +8,22 @@ User = get_user_model()
 
 class PlatformTaskLog(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    got = models.BooleanField()
+    reward = models.PositiveIntegerField()
 
     class Meta:
         abstract = True
 
 
+class TaskUsernameLog(PlatformTaskLog):
+    pass
 
-class PlatformTasks(SingletonModel):
 
-    title = 'Platform Tasks'
+class PlatformTasksSettings(SingletonModel):
+
+    title = 'Platform Tasks settings'
+
+    cancel_fee = models.PositiveIntegerField(default=0, verbose_name='Task cancel fee (%)')  # NOQA
 
     task_social_reward = models.PositiveIntegerField(default=0)
     task_social_is_active = models.BooleanField()
@@ -26,6 +33,7 @@ class PlatformTasks(SingletonModel):
 
     task_username_reward = models.PositiveIntegerField(default=0)
     task_username_is_active = models.BooleanField()
+    task_username_link = models.URLField(blank=True, null=True)
 
     task_domain_id_reward = models.PositiveIntegerField(default=0)
     task_domain_id_is_active = models.BooleanField()
@@ -53,3 +61,6 @@ class PlatformTasks(SingletonModel):
 
     task_cabinet_notification_reward = models.PositiveIntegerField(default=0)
     task_cabinet_notification_is_active = models.BooleanField()
+
+    class Meta:
+        verbose_name_plural = 'Platform Tasks settings'

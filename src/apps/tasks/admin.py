@@ -4,6 +4,7 @@ from django.contrib.admin import AdminSite
 from apps.projects.admin import ProjectAdmin
 
 from . import models
+from . import admin_platform
 
 
 LIST_DISPLAY_COMMON = [
@@ -47,11 +48,14 @@ class ProjectProxyAdmin(ProjectAdmin):
     autocomplete_fields = []
 
 
-class PlatformTasksAdmin(admin.ModelAdmin):
+class PlatformTasksSettingsAdmin(admin.ModelAdmin):
     list_display = (
         'title',
     )
     fields = (
+        (
+            'cancel_fee',
+        ),
         (
             'task_social_reward',
             'task_social_is_active'
@@ -107,4 +111,6 @@ admin_tasks = TaskAdminSite(name='admin_tasks')
 admin_platform_tasks = TaskAdminSite(name='admin_platform_tasks')
 
 admin_tasks.register(models.ProjectProxy, ProjectProxyAdmin)
-admin_platform_tasks.register(models.PlatformTasks, PlatformTasksAdmin)
+admin_platform_tasks.register(models.PlatformTasksSettings, PlatformTasksSettingsAdmin)  # NOQA
+
+admin_platform_tasks.register(models.TaskUsernameLog, admin_platform.TaskUsernameLogAdmin)  # NOQA

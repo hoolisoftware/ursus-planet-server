@@ -1,9 +1,8 @@
 from django.db import models
 
-from core.models import SingletonModel
 from apps.projects.models import Project
 
-from .models_platform_tasks import *
+from .models_platform_tasks import *  # NOQA
 
 
 class Task(models.Model):
