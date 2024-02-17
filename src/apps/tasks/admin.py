@@ -52,57 +52,207 @@ class PlatformTasksSettingsAdmin(admin.ModelAdmin):
     list_display = (
         'title',
     )
-    fields = (
+    fieldsets = (
         (
-            'cancel_fee',
+            "General settings",
+            {
+                "fields": ("cancel_fee",),
+            },
         ),
         (
-            'task_social_reward',
-            'task_social_is_active'
+            "Task - connect X account",
+            {
+                "fields": (
+                    (
+                        'task_social_x_reward',
+                        'task_social_x_is_active'
+                    ),
+                    'task_social_x_title',
+                    'task_social_x_link'
+                ),
+            },
         ),
         (
-            'task_email_reward',
-            'task_email_is_active'
+            'Task - connect Github account',
+            {
+                "fields": (
+                    (
+                        'task_social_github_reward',
+                        'task_social_github_is_active'
+                    ),
+                    'task_social_github_title',
+                    'task_social_github_link'
+                ),
+            }
         ),
         (
-            'task_username_reward',
-            'task_username_is_active'
+            'Task - connect discord account',
+            {
+                "fields": (
+                    (
+                        'task_social_discord_reward',
+                        'task_social_discord_is_active',
+                    ),
+                    'task_social_discord_title',
+                    'task_social_discord_link'
+                ),
+            }
         ),
         (
-            'task_domain_id_reward',
-            'task_domain_id_is_active'
+            'Task - connect telegram account',
+            {
+                "fields": (
+                    (
+                        'task_social_telegram_reward',
+                        'task_social_telegram_is_active',  
+                    ),
+                    'task_social_telegram_title',
+                    'task_social_telegram_link'
+                ),
+            }
         ),
         (
-            'task_avatar_reward',
-            'task_avatar_is_active'
+            'Task - connect email',
+            {
+                "fields": (
+                    (
+                        'task_email_reward',
+                        'task_email_is_active'
+                    ),
+                    'task_email_title',
+                    'task_email_link'
+                ),
+            }
         ),
         (
-            'task_nft_avatar_reward',
-            'task_nft_avatar_is_active'
+            'Task - set username',
+            {
+                "fields": (
+                    (
+                        'task_username_reward',
+                        'task_username_is_active'
+                    ),
+                    'task_username_title',
+                    'task_username_link'
+                ),
+            }
         ),
         (
-            'task_ursas_collection_nft_avatar_reward',
-            'task_ursas_collection_nft_avatar_is_active'
+            'Task - set domain as username',
+            {
+                "fields": (
+                    (
+                        'task_domain_id_reward',
+                        'task_domain_id_is_active'
+                    ),
+                    'task_domain_id_title',
+                    'task_domain_id_link'
+                ),
+            }
         ),
         (
-            'task_wallet_reward',
-            'task_wallet_is_active'
+            'Task - set avatar',
+            {
+                "fields": (
+                    (
+                        'task_avatar_reward',
+                        'task_avatar_is_active'
+                    ),
+                    'task_avatar_title',
+                    'task_avatar_link'
+                ),
+            }
         ),
         (
-            'task_chain_reward',
-            'task_chain_is_active'
+            'Task - set NFT as an avatar',
+            {
+                "fields": (
+                    (
+                        'task_nft_avatar_reward',
+                        'task_nft_avatar_is_active'
+                    ),
+                    'task_nft_avatar_title',
+                    'task_nft_avatar_link'
+                ),
+            }
         ),
         (
-            'task_referral_reward',
-            'task_referral_is_active'
+            'Task - set NFT from ursas collection as an avatar',
+            {
+                "fields": (
+                    (
+                        'task_ursas_collection_nft_avatar_reward',
+                        'task_ursas_collection_nft_avatar_is_active'
+                    ),
+                    'task_ursas_collection_nft_avatar_title',
+                    'task_ursas_collection_nft_avatar_link'
+                ),
+            }
         ),
         (
-            'task_email_notification_reward',
-            'task_email_notification_is_active'
+            'Task - connect wallet',
+            {
+                "fields": (
+                    (
+                        'task_wallet_reward',
+                        'task_wallet_is_active'
+                    ),
+                    'task_wallet_title',
+                    'task_wallet_link'
+                ),
+            }
         ),
         (
-            'task_cabinet_notification_reward',
-            'task_cabinet_notification_is_active'
+            'Task - add chain',
+            {
+                "fields": (
+                    (
+                        'task_chain_reward',
+                        'task_chain_is_active'
+                    ),
+                    'task_chain_title',
+                    'task_chain_link'
+                ),
+            }
+        ),
+        (
+            'Task - become a referral',
+            {
+                "fields": (
+                    (
+                        'task_referral_self_reward',
+                        'task_referral_self_is_active'
+                    ),
+                    'task_referral_self_title',
+                    'task_referral_self_link'
+                ),
+            }
+        ),
+        (
+            'Task - enable email notification',
+            {
+                "fields": (
+                    (
+                        'task_email_notification_reward',
+                        'task_email_notification_is_active'
+                    ),
+                    'task_email_notification_title',
+                    'task_email_notification_link'
+                ),
+            }
+        ),
+        (
+            'Task - enable cabitnet notification',
+            {
+                "fields": (
+                    (
+                        'task_cabinet_notification_reward',
+                        'task_cabinet_notification_is_active'
+                    ),
+                    'task_cabinet_notification_title',
+                    'task_cabinet_notification_link'
+                ),
+            }
         ),
     )
 
