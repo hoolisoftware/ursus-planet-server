@@ -5,4 +5,5 @@ from . import views
 
 urlpatterns = (
     path('platform/', views.PlatformTasksSettingsRetrieveAV.as_view()),
+    path('platform/logs/', views.PlatformTasksLogsRetrieveAV.as_view())
 )
