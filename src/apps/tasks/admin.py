@@ -104,7 +104,7 @@ class PlatformTasksSettingsAdmin(admin.ModelAdmin):
                 "fields": (
                     (
                         'task_social_telegram_reward',
-                        'task_social_telegram_is_active',  
+                        'task_social_telegram_is_active',
                     ),
                     'task_social_telegram_title',
                     'task_social_telegram_link'

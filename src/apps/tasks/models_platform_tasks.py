@@ -23,9 +23,6 @@ class TaskEmailLog(PlatformTaskLog):
     pass
 
 
-
-
-
 class PlatformTasksSettings(SingletonModel):
 
     title = 'Platform Tasks settings'
@@ -40,17 +37,17 @@ class PlatformTasksSettings(SingletonModel):
     task_social_github_title = models.CharField(max_length=64)
     task_social_github_reward = models.PositiveIntegerField(default=0)
     task_social_github_is_active = models.BooleanField(default=False)
-    task_social_github_link = models.CharField(max_length=64, blank=True, null=True)
+    task_social_github_link = models.CharField(max_length=64, blank=True, null=True)  # NOQA
 
     task_social_discord_title = models.CharField(max_length=64)
     task_social_discord_reward = models.PositiveIntegerField(default=0)
     task_social_discord_is_active = models.BooleanField(default=False)
-    task_social_discord_link = models.CharField(max_length=64, blank=True, null=True)
+    task_social_discord_link = models.CharField(max_length=64, blank=True, null=True)  # NOQA
 
     task_social_telegram_title = models.CharField(max_length=64)
     task_social_telegram_reward = models.PositiveIntegerField(default=0)
     task_social_telegram_is_active = models.BooleanField(default=False)
-    task_social_telegram_link = models.CharField(max_length=64, blank=True, null=True)
+    task_social_telegram_link = models.CharField(max_length=64, blank=True, null=True)  # NOQA
 
     task_email_title = models.CharField(max_length=64)
     task_email_reward = models.PositiveIntegerField(default=0)
@@ -65,7 +62,7 @@ class PlatformTasksSettings(SingletonModel):
     task_domain_id_title = models.CharField(max_length=64)
     task_domain_id_reward = models.PositiveIntegerField(default=0)
     task_domain_id_is_active = models.BooleanField(default=False)
-    task_domain_id_link = models.CharField(max_length=64, blank=True, null=True)
+    task_domain_id_link = models.CharField(max_length=64, blank=True, null=True)  # NOQA
 
     task_avatar_title = models.CharField(max_length=64)
     task_avatar_reward = models.PositiveIntegerField(default=0)
@@ -75,12 +72,12 @@ class PlatformTasksSettings(SingletonModel):
     task_nft_avatar_title = models.CharField(max_length=64)
     task_nft_avatar_reward = models.PositiveIntegerField(default=0)
     task_nft_avatar_is_active = models.BooleanField(default=False)
-    task_nft_avatar_link = models.CharField(max_length=64, blank=True, null=True)
+    task_nft_avatar_link = models.CharField(max_length=64, blank=True, null=True)  # NOQA
 
     task_ursas_collection_nft_avatar_title = models.CharField(max_length=64)
     task_ursas_collection_nft_avatar_reward = models.PositiveIntegerField(default=0)  # NOQA
-    task_ursas_collection_nft_avatar_is_active = models.BooleanField(default=False)
-    task_ursas_collection_nft_avatar_link = models.CharField(max_length=64, blank=True, null=True)
+    task_ursas_collection_nft_avatar_is_active = models.BooleanField(default=False)  # NOQA
+    task_ursas_collection_nft_avatar_link = models.CharField(max_length=64, blank=True, null=True)  # NOQA
 
     task_wallet_title = models.CharField(max_length=64)
     task_wallet_reward = models.PositiveIntegerField(default=0)
@@ -95,17 +92,17 @@ class PlatformTasksSettings(SingletonModel):
     task_referral_self_title = models.CharField(max_length=64)
     task_referral_self_reward = models.PositiveIntegerField(default=0)
     task_referral_self_is_active = models.BooleanField(default=False)
-    task_referral_self_link = models.CharField(max_length=64, blank=True, null=True)
+    task_referral_self_link = models.CharField(max_length=64, blank=True, null=True)  # NOQA
 
     task_email_notification_title = models.CharField(max_length=64)
     task_email_notification_reward = models.PositiveIntegerField(default=0)
     task_email_notification_is_active = models.BooleanField(default=False)
-    task_email_notification_link = models.CharField(max_length=64, blank=True, null=True)
+    task_email_notification_link = models.CharField(max_length=64, blank=True, null=True)  # NOQA
 
     task_cabinet_notification_title = models.CharField(max_length=64)
     task_cabinet_notification_reward = models.PositiveIntegerField(default=0)
     task_cabinet_notification_is_active = models.BooleanField(default=False)
-    task_cabinet_notification_link = models.CharField(max_length=64, blank=True, null=True)
+    task_cabinet_notification_link = models.CharField(max_length=64, blank=True, null=True)  # NOQA
 
     class Meta:
         verbose_name_plural = 'Platform Tasks settings'
