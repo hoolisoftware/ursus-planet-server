@@ -264,3 +264,17 @@ admin_tasks.register(models.ProjectProxy, ProjectProxyAdmin)
 admin_platform_tasks.register(models.PlatformTasksSettings, PlatformTasksSettingsAdmin)  # NOQA
 
 admin_platform_tasks.register(models.TaskUsernameLog, admin_platform.TaskUsernameLogAdmin)  # NOQA
+admin_platform_tasks.register(models.TaskSocialXLog, admin_platform.TaskSocialXLogAdmin)  # NOQA
+admin_platform_tasks.register(models.TaskSocialGithubLog, admin_platform.TaskSocialGithubLogAdmin)  # NOQA
+admin_platform_tasks.register(models.TaskSocialDiscordLog, admin_platform.TaskSocialDiscordLogAdmin)  # NOQA
+admin_platform_tasks.register(models.TaskSocialTelegramLog, admin_platform.TaskSocialTelegramLogAdmin)  # NOQA
+admin_platform_tasks.register(models.TaskEmailLog, admin_platform.TaskEmailLogAdmin)  # NOQA
+admin_platform_tasks.register(models.TaskDomainIdLog, admin_platform.TaskDomainIdLogAdmin)  # NOQA
+admin_platform_tasks.register(models.TaskAvatarLog, admin_platform.TaskAvatarLogAdmin)  # NOQA
+admin_platform_tasks.register(models.TaskNftAvatarLog, admin_platform.TaskNftAvatarLogAdmin)  # NOQA
+admin_platform_tasks.register(models.TaskUrsasCollectionNftAvatarLog, admin_platform.TaskUrsasCollectionNftAvatarLogAdmin)  # NOQA
+admin_platform_tasks.register(models.TaskWalletLog, admin_platform.TaskWalletLogAdmin)  # NOQA
+admin_platform_tasks.register(models.TaskChainLog, admin_platform.TaskChainLogAdmin)  # NOQA
+admin_platform_tasks.register(models.TaskReferralSelfLog, admin_platform.TaskReferralSelfLogAdmin)  # NOQA
+admin_platform_tasks.register(models.TaskEmailNotificationLog, admin_platform.TaskEmailNotificationLogAdmin)  # NOQA
+admin_platform_tasks.register(models.TaskCabinetNotificationLog, admin_platform.TaskCabinetNotificationLogAdmin)  # NOQA

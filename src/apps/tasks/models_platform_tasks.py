@@ -15,11 +15,63 @@ class PlatformTaskLog(models.Model):
         abstract = True
 
 
-class TaskUsernameLog(PlatformTaskLog):
+class TaskSocialXLog(PlatformTaskLog):
+    pass
+
+
+class TaskSocialGithubLog(PlatformTaskLog):
+    pass
+
+
+class TaskSocialDiscordLog(PlatformTaskLog):
+    pass
+
+
+class TaskSocialTelegramLog(PlatformTaskLog):
     pass
 
 
 class TaskEmailLog(PlatformTaskLog):
+    pass
+
+
+class TaskUsernameLog(PlatformTaskLog):
+    pass
+
+
+class TaskDomainIdLog(PlatformTaskLog):
+    pass
+
+
+class TaskAvatarLog(PlatformTaskLog):
+    pass
+
+
+class TaskNftAvatarLog(PlatformTaskLog):
+    pass
+
+
+class TaskUrsasCollectionNftAvatarLog(PlatformTaskLog):
+    pass
+
+
+class TaskWalletLog(PlatformTaskLog):
+    pass
+
+
+class TaskChainLog(PlatformTaskLog):
+    pass
+
+
+class TaskReferralSelfLog(PlatformTaskLog):
+    pass
+
+
+class TaskEmailNotificationLog(PlatformTaskLog):
+    pass
+
+
+class TaskCabinetNotificationLog(PlatformTaskLog):
     pass
 
 
