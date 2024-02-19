@@ -1,69 +1,38 @@
 from django.contrib import admin
 
+from . import models
 
-class LogAdmin(admin.ModelAdmin):
+
+class PlatformTaskLogAdmin(admin.ModelAdmin):
     list_display = (
         'user',
+        'task',
         'reward',
-        'got'
+        'got',
     )
 
 
-class TaskSocialXLogAdmin(LogAdmin):
-    pass
-
-
-class TaskSocialGithubLogAdmin(LogAdmin):
-    pass
-
-
-class TaskSocialDiscordLogAdmin(LogAdmin):
-    pass
-
-
-class TaskSocialTelegramLogAdmin(LogAdmin):
-    pass
-
-
-class TaskEmailLogAdmin(LogAdmin):
-    pass
-
-
-class TaskUsernameLogAdmin(LogAdmin):
-    pass
-
-
-class TaskDomainIdLogAdmin(LogAdmin):
-    pass
-
-
-class TaskAvatarLogAdmin(LogAdmin):
-    pass
-
-
-class TaskNftAvatarLogAdmin(LogAdmin):
-    pass
-
-
-class TaskUrsasCollectionNftAvatarLogAdmin(LogAdmin):
-    pass
-
-
-class TaskWalletLogAdmin(LogAdmin):
-    pass
-
-
-class TaskChainLogAdmin(LogAdmin):
-    pass
-
-
-class TaskReferralSelfLogAdmin(LogAdmin):
-    pass
-
-
-class TaskEmailNotificationLogAdmin(LogAdmin):
-    pass
-
-
-class TaskCabinetNotificationLogAdmin(LogAdmin):
-    pass
+class PlatformTaskSettingsAdmin(admin.ModelAdmin):
+    list_display = (
+        'title',
+    )
+    fieldsets = (
+        (
+            "General settings",
+            {
+                "fields": ("cancel_fee",),
+            },
+        ),
+    ) + tuple(
+        (
+            task[1],
+            {
+                "classes": ("collapse",),
+                "fields": tuple(
+                    f"{task[0]}_{setting[0]}"
+                    for setting in models.TASK_SETTINGS
+                ),
+            },
+        )
+        for task in models.TASKS
+    )

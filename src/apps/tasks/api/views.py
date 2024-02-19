@@ -1,37 +1,53 @@
-from rest_framework.generics import RetrieveAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from . import serializers
+from . import exceptions
 from .. import models
 
 
-class PlatformTasksSettingsRetrieveAV(RetrieveAPIView):
-
-    serializer_class = serializers.PlatformTasksSettingsSerializer
-    model = models.PlatformTasksSettings
-
-    def get_object(self):
-        return self.model.load()
-
-
-class PlatformTasksLogsRetrieveAV(APIView):
+class PlatformTasksRetieveAV(APIView):
 
     def get(self, request):
-        return Response({
-            "task_social_x" : serializers.TaskSocialXLogSerializer(models.TaskSocialXLog.objects.filter(user=request.user).first()).data,  # NOQA
-            "task_social_github" : serializers.TaskSocialGithubLogSerializer(models.TaskSocialGithubLog.objects.filter(user=request.user).first()).data,  # NOQA
-            "task_social_discord" : serializers.TaskSocialDiscordLogSerializer(models.TaskSocialDiscordLog.objects.filter(user=request.user).first()).data,  # NOQA
-            "task_social_telegram" : serializers.TaskSocialTelegramLogSerializer(models.TaskSocialTelegramLog.objects.filter(user=request.user).first()).data,  # NOQA
-            "task_email" : serializers.TaskEmailLogSerializer(models.TaskEmailLog.objects.filter(user=request.user).first()).data,  # NOQA
-            "task_username" : serializers.TaskUsernameLogSerializer(models.TaskUsernameLog.objects.filter(user=request.user).first()).data,  # NOQA
-            "task_domain_id" : serializers.TaskDomainIdLogSerializer(models.TaskDomainIdLog.objects.filter(user=request.user).first()).data,  # NOQA
-            "task_avatar" : serializers.TaskAvatarLogSerializer(models.TaskAvatarLog.objects.filter(user=request.user).first()).data,  # NOQA
-            "task_nft_avatar" : serializers.TaskNftAvatarLogSerializer(models.TaskNftAvatarLog.objects.filter(user=request.user).first()).data,  # NOQA
-            "task_ursas_collection_nft_avatar" : serializers.TaskUrsasCollectionNftAvatarLogSerializer(models.TaskUrsasCollectionNftAvatarLog.objects.filter(user=request.user).first()).data,  # NOQA
-            "task_wallet" : serializers.TaskWalletLogSerializer(models.TaskWalletLog.objects.filter(user=request.user).first()).data,  # NOQA
-            "task_chain" : serializers.TaskChainLogSerializer(models.TaskChainLog.objects.filter(user=request.user).first()).data,  # NOQA
-            "task_referral_self" : serializers.TaskReferralSelfLogSerializer(models.TaskReferralSelfLog.objects.filter(user=request.user).first()).data,  # NOQA
-            "task_email_notification" : serializers.TaskEmailNotificationLogSerializer(models.TaskEmailNotificationLog.objects.filter(user=request.user).first()).data,  # NOQA
-            "task_cabinet_notification" : serializers.TaskCabinetNotificationLogSerializer(models.TaskCabinetNotificationLog.objects.filter(user=request.user).first()).data  # NOQA
-        })
+        settings = models.PlatformTaskSettings.load()
+        logs = models.PlatformTaskLog.objects.filter(user=request.user)
+        return Response((
+            {
+                "name": task[0],
+                **{
+                    setting[0]: getattr(
+                        settings,
+                        f'{task[0]}_{setting[0]}',
+                        None
+                    ) for setting in models.TASK_SETTINGS
+                },
+                "log": serializers.PlatformTaskLogSerializer(logs.filter(task=task[0]).first()).data  # NOQA
+            } for task in models.TASKS
+        ))
+
+
+class PlatformTaskGetRewardAV(APIView):
+
+    def post(self, request):
+        task_name = request.data.get('task_name')
+
+        if task_name not in [task[0] for task in models.TASKS]:
+            raise exceptions.InvalidTaskName
+
+        task_log = models.PlatformTaskLog.objects.filter(
+            user=request.user,
+            task=task_name
+        ).first()
+
+        if not task_log:
+            raise exceptions.NotFoundTaskLog
+
+        if task_log.got:
+            raise exceptions.AlreadyGotReward
+
+        request.user.points += task_log.reward
+        request.user.save()
+        task_log.got = True
+        task_log.save()
+
+        return Response({"status": "ok"})

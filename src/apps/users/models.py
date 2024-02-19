@@ -39,7 +39,7 @@ class User(AbstractUser):
     password = models.TextField(blank=True, null=True)
     first_name = None
     last_name = None
-    points = models.PositiveIntegerField(default=0)
+    points = models.FloatField(default=0)
 
     # cabinet notifications settings
     cabinet_notifications_email = models.BooleanField(default=False)
