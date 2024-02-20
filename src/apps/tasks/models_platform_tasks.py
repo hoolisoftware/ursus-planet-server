@@ -83,6 +83,7 @@ class PlatformTaskLog(models.Model):
     got = models.BooleanField(default=False)
     reward = models.PositiveIntegerField(default=0)
     task = models.CharField(max_length=128, choices=TASKS)
+    created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         unique_together = (('user', 'task'),)

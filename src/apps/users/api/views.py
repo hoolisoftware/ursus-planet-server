@@ -65,7 +65,7 @@ class UserChangeEmail(APIView):
 
 class UserVerifyEmail(APIView):
     permission_classes = [IsAuthenticated]
-    
+
     def post(self, request):
 
         if not (code := request.data.get('code')):

@@ -9,6 +9,7 @@ class PlatformTaskLogAdmin(admin.ModelAdmin):
         'task',
         'reward',
         'got',
+        'created'
     )
 
 
