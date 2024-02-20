@@ -1,5 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
 from . import serializers
 from . import exceptions
@@ -7,6 +8,7 @@ from .. import models
 
 
 class PlatformTasksRetieveAV(APIView):
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
         settings = models.PlatformTaskSettings.load()
@@ -27,6 +29,7 @@ class PlatformTasksRetieveAV(APIView):
 
 
 class PlatformTaskGetRewardAV(APIView):
+    permission_classes = [IsAuthenticated]
 
     def post(self, request):
         task_name = request.data.get('task_name')

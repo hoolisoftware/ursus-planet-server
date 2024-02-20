@@ -32,6 +32,8 @@ class UserViewSet(UserSelfMixin, ModelViewSet):
 
 
 class UserChangeEmail(APIView):
+    permission_classes = [IsAuthenticated]
+
     def post(self, request):
 
         if not (email := request.data.get('email')):
@@ -62,6 +64,8 @@ class UserChangeEmail(APIView):
 
 
 class UserVerifyEmail(APIView):
+    permission_classes = [IsAuthenticated]
+    
     def post(self, request):
 
         if not (code := request.data.get('code')):
