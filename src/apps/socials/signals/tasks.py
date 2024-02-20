@@ -1,15 +1,11 @@
-# from django.contrib.auth import get_user_model
-from django.db.models.signals import pre_save
+from django.db.models.signals import pre_save, pre_delete
 from django.dispatch import receiver
 
 from apps.tasks.models import PlatformTaskLog, PlatformTaskSettings
 from .. import models
 
 
-# User = get_user_model()
-
-
-def create_social_handler(social, social_task_name):
+def create_social_create_handler(social, social_task_name):
     @receiver(pre_save, sender=social)
     def handler(sender, instance, **kwargs):
         log = PlatformTaskLog.objects.filter(
@@ -28,7 +24,21 @@ def create_social_handler(social, social_task_name):
     return handler
 
 
-handler_discord = create_social_handler(models.SocialAccountDiscord, 'task_social_discord')  # NOQA
-handler_telegram = create_social_handler(models.SocialAccountTelegram, 'task_social_telegram')  # NOQA
-handler_github = create_social_handler(models.SocialAccountGithub, 'task_social_github')  # NOQA
-handler_x = create_social_handler(models.SocialAccountX, 'task_social_x')
+def create_social_delete_handler(social, social_task_name):
+    @receiver(pre_delete, sender=social)
+    def handler(sender, instance, **kwargs):
+        print('Scenario: user deletes social')
+
+    return handler
+
+
+
+handler_create_discord = create_social_create_handler(models.SocialAccountDiscord, 'task_social_discord')  # NOQA
+handler_create_telegram = create_social_create_handler(models.SocialAccountTelegram, 'task_social_telegram')  # NOQA
+handler_create_github = create_social_create_handler(models.SocialAccountGithub, 'task_social_github')  # NOQA
+handler_create_x = create_social_create_handler(models.SocialAccountX, 'task_social_x')  # NOQA
+
+handler_delete_discord = create_social_delete_handler(models.SocialAccountDiscord, 'task_social_discord')  # NOQA
+handler_delete_telegram = create_social_delete_handler(models.SocialAccountTelegram, 'task_social_telegram')  # NOQA
+handler_delete_github = create_social_delete_handler(models.SocialAccountGithub, 'task_social_github')  # NOQA
+handler_delete_x = create_social_delete_handler(models.SocialAccountX, 'task_social_x')  # NOQA
