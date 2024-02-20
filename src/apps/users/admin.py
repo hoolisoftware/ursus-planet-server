@@ -13,7 +13,9 @@ class UserAdmin(admin.ModelAdmin):
     inlines = [WalletInline]
     list_display = (
         'username',
+        'id',
         'email',
+        'points'
     )
     search_fields = (
         'username',

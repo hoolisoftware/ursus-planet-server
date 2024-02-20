@@ -27,10 +27,17 @@ def create_social_create_handler(social, social_task_name):
 def create_social_delete_handler(social, social_task_name):
     @receiver(pre_delete, sender=social)
     def handler(sender, instance, **kwargs):
-        print('Scenario: user deletes social')
+        log = PlatformTaskLog.objects.filter(
+            user=instance.owner,
+            task=social_task_name
+        ).first()
+
+        if log and log.got:
+            log.user.points -= log.reward
+            log.delete()
+            log.user.save()
 
     return handler
-
 
 
 handler_create_discord = create_social_create_handler(models.SocialAccountDiscord, 'task_social_discord')  # NOQA
