@@ -1,14 +1,15 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.middleware import csrf
 
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.exceptions import APIException
 from rest_framework_simplejwt.tokens import RefreshToken
 
+from apps.users.api.utils import set_user_referrer
 from .utils import get_or_create_user
-
-from django.middleware import csrf
 
 
 User = get_user_model()
@@ -55,6 +56,15 @@ class LoginView(APIView):
             )
             csrf.get_token(request)
             response.data = {"detail": "OK", "data": data}
+
+            try:
+                set_user_referrer(
+                    user=user,
+                    referrer_username=request.COOKIES.get(settings.REFERRER_COOKIE['COOKIE']) or None  # NOQA
+                )
+            except APIException:
+                pass
+
             return response
         else:
             return Response(

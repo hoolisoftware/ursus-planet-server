@@ -14,6 +14,7 @@ from rest_framework.response import Response
 from .. import models
 from . import serializers
 from . import exceptions
+from . import utils
 
 
 User = get_user_model()
@@ -61,28 +62,10 @@ class UserSetReferrerAV(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
-        username = request.data.get('username')
-
-        if request.user.referrer:
-            raise exceptions.ReferrerAlreadySet
-
-        if not username:
-            raise exceptions.ReferrerUsernameNotProvided
-
-        user = User.objects.filter(username=username).first()
-        if not user:
-            raise exceptions.ReferrerUsernameInvalid
-
-        if not user.referrer:
-            raise exceptions.ReferrerInvalid
-
-        if user.referral_quote <= 0:
-            raise exceptions.ReferrerQuoteExceeded
-
-        request.user.referrer = user
-        request.user.save()
-        user.referral_quote -= 1
-        user.save()
+        utils.set_user_referrer(
+            user=request.user,
+            referrer_username=request.data.get('username')
+        )
 
         return Response({'status': 'ok'})
 
