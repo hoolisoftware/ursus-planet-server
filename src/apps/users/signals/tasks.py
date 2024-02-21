@@ -36,6 +36,15 @@ def user_handler(sender, instance, **kwargs):
                 reward=settings.task_email_reward
             )
 
+    if instance.referrer:
+        if not logs.filter(task='task_referral_self').first():
+            PlatformTaskLog.objects.create(
+                task='task_referral_self',
+                user=instance,
+                reward=settings.task_referral_self_reward
+            )
+
+
     enabled = instance.cabinet_notifications_account
     log = logs.filter(task='task_cabinet_notification_account').first()
     if enabled and (not log):

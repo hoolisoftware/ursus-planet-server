@@ -6,7 +6,10 @@ from .. import models
 class PlatformTaskSettingsSerializer(ModelSerializer):
     class Meta:
         model = models.PlatformTaskSettings
-        fields = '__all__'
+        fields = (
+            'cancel_fee',
+            'referral_quote'
+        )
 
 
 class PlatformTaskLogSerializer(ModelSerializer):

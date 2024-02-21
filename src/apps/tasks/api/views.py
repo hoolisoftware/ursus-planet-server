@@ -1,6 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.generics import RetrieveAPIView
 
 from . import serializers
 from . import exceptions
@@ -26,6 +27,14 @@ class PlatformTasksRetieveAV(APIView):
                 "log": serializers.PlatformTaskLogSerializer(logs.filter(task=task[0]).first()).data  # NOQA
             } for task in models.TASKS
         ))
+
+
+class PlatformTasksSettingsAV(RetrieveAPIView):
+    serializer_class = serializers.PlatformTaskSettingsSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        return models.PlatformTaskSettings.load()
 
 
 class PlatformTaskGetRewardAV(APIView):

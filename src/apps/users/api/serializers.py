@@ -5,6 +5,10 @@ from ..models import User
 
 class UserSerializer(ModelSerializer):
     read_only_fields = ('is_active', 'is_staff', 'referrer')
+    referrer = SlugRelatedField(
+        read_only=True,
+        slug_field='username'
+    )
 
     class Meta:
         model = User
