@@ -26,5 +26,6 @@ class UserReferralSerializer(ModelSerializer):
         model = User
         fields = [
             'username',
-            'wallets'
+            'wallets',
+            'referral_count'
         ]

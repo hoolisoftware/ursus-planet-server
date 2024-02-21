@@ -68,6 +68,10 @@ class User(AbstractUser):
     color4 = models.CharField(max_length=7, default=random_hex)
     color5 = models.CharField(max_length=7, default=random_hex)
 
+    @property
+    def referral_count(self):
+        return self.referrals.count()
+
     def __str__(self):
         return f"{self.username}({self.id})"
 
