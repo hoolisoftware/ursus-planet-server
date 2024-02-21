@@ -164,12 +164,20 @@ CELERY_CACHE_BACKEND = 'django-cache'
 
 SIMPLE_JWT = {
     'AUTH_COOKIE': 'access_token',
-    'AUTH_COOKIE_DOMAIN': 'leks.hooli.xyz',
     'AUTH_COOKIE_SECURE': False,
     'AUTH_COOKIE_HTTP_ONLY': True,
     'AUTH_COOKIE_PATH': '/',
     'AUTH_COOKIE_SAMESITE': 'Lax',
     'ACCESS_TOKEN_LIFETIME': timedelta(days=3)
+}
+
+REFERRER_COOKIE = {
+    'COOKIE': 'referrer',
+    'SECURE': False,
+    'HTTP_ONLY': True,
+    'PATH': '/',
+    'SAMESITE': 'Lax',
+    'LIFETIME': timedelta(days=3)
 }
 
 OPTIMIZED_IMAGE_METHOD = 'pillow'

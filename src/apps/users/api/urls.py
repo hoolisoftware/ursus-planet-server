@@ -11,5 +11,6 @@ urlpatterns = [
     path('email-change/', views.UserChangeEmail.as_view()),
     path('email-verify/', views.UserVerifyEmail.as_view()),
     path('referrals/', views.UserReferralsListAV.as_view()),
+    path('referrer/set/cookie/', views.UserSetReferralCookie.as_view()),
     path('referrer/set/', views.UserSetReferrerAV.as_view())
 ] + router.urls

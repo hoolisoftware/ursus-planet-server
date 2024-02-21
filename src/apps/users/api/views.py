@@ -1,5 +1,6 @@
 from random import randint
 
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
@@ -40,7 +41,24 @@ class UserReferralsListAV(ListAPIView):
         return self.request.user.referrals.all()
 
 
+class UserSetReferralCookie(APIView):
+
+    def post(self, request):
+        response = Response()
+        response.set_cookie(
+            key=settings.REFERRER_COOKIE['COOKIE'],
+            value=request.data.get('username'),
+            expires=settings.REFERRER_COOKIE['LIFETIME'],
+            secure=settings.REFERRER_COOKIE['SECURE'],
+            httponly=settings.REFERRER_COOKIE['HTTP_ONLY'],
+            samesite=settings.REFERRER_COOKIE['SAMESITE'],
+        )
+        response.data = {'success': 'ok'}
+        return response
+
+
 class UserSetReferrerAV(APIView):
+    permission_classes = [IsAuthenticated]
 
     def post(self, request):
         username = request.data.get('username')
