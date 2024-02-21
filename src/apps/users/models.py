@@ -41,6 +41,9 @@ class User(AbstractUser):
     last_name = None
     points = models.FloatField(default=0)
 
+    referrer = models.ForeignKey("self", related_name='referrals', on_delete=models.SET_NULL, null=True, blank=True)  # NOQA
+    referral_quote = models.PositiveIntegerField(default=0)
+
     # cabinet notifications settings
     cabinet_notifications_email = models.BooleanField(default=False)
     cabinet_notifications_account = models.BooleanField(default=False)

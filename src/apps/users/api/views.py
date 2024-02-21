@@ -6,6 +6,7 @@ from django.template.loader import render_to_string
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.views import APIView
+from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 
 
@@ -29,6 +30,14 @@ class UserSelfMixin:
 class UserViewSet(UserSelfMixin, ModelViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = serializers.UserSerializer
+
+
+class UserReferralsListAV(ListAPIView):
+    serializer_class = serializers.UserReferralSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return self.request.user.referrals.all()
 
 
 class UserChangeEmail(APIView):
