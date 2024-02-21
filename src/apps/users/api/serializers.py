@@ -4,6 +4,8 @@ from ..models import User
 
 
 class UserSerializer(ModelSerializer):
+    read_only_fields = ('is_active', 'is_staff', 'referrer')
+
     class Meta:
         model = User
         fields = '__all__'

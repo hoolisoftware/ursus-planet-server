@@ -8,6 +8,10 @@ class WalletInline(admin.TabularInline):
     model = UserWallet
 
 
+class UserInline(admin.TabularInline):
+    model = User
+
+
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
     inlines = [WalletInline]
@@ -15,11 +19,15 @@ class UserAdmin(admin.ModelAdmin):
         'username',
         'id',
         'email',
+        'referrer',
         'points'
     )
     search_fields = (
         'username',
         'email'
+    )
+    autocomplete_fields = (
+        'referrer',
     )
 
 

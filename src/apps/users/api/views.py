@@ -40,6 +40,35 @@ class UserReferralsListAV(ListAPIView):
         return self.request.user.referrals.all()
 
 
+class UserSetReferrerAV(APIView):
+
+    def post(self, request):
+        username = request.data.get('username')
+
+        if request.user.referrer:
+            raise exceptions.ReferrerAlreadySet
+
+        if not username:
+            raise exceptions.ReferrerUsernameNotProvided
+
+        user = User.objects.filter(username=username).first()
+        if not user:
+            raise exceptions.ReferrerUsernameInvalid
+
+        if not user.referrer:
+            raise exceptions.ReferrerInvalid
+
+        if user.referral_quote <= 0:
+            raise exceptions.ReferrerQuoteExceeded
+
+        request.user.referrer = user
+        request.user.save()
+        user.referral_quote -= 1
+        user.save()
+
+        return Response({'status': 'ok'})
+
+
 class UserChangeEmail(APIView):
     permission_classes = [IsAuthenticated]
 
