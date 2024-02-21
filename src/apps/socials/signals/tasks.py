@@ -18,7 +18,7 @@ def create_social_create_handler(social, social_task_name):
             PlatformTaskLog.objects.create(
                 task=social_task_name,
                 user=instance.owner,
-                reward=settings.task_username_reward
+                reward=getattr(settings, f'{social_task_name}_reward')
             )
 
     return handler
@@ -32,10 +32,11 @@ def create_social_delete_handler(social, social_task_name):
             task=social_task_name
         ).first()
 
-        if log and log.got:
-            log.user.points -= log.reward
+        if log:
+            if log.got:
+                log.user.points -= log.reward
+                log.user.save()
             log.delete()
-            log.user.save()
 
     return handler
 
