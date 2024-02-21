@@ -93,6 +93,7 @@ class PlatformTaskSettings(SingletonModel):
 
     title = 'Platform Tasks settings'
     cancel_fee = models.PositiveIntegerField(default=0, verbose_name='Task cancel fee (%)')  # NOQA
+    referral_quote = models.PositiveIntegerField(default=0)  # NOQA
 
     class Meta:
         verbose_name_plural = 'Platform Tasks settings'

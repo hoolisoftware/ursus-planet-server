@@ -1,7 +1,7 @@
 import os
 
 
-from celery import Celery, shared_task
+from celery import Celery
 from celery.schedules import crontab
 from celery.utils.log import get_task_logger
 from django.contrib.auth import get_user_model
@@ -41,11 +41,18 @@ def setup_periodic_tasks(sender, **kwargs):
         send_notifications.s('month'),
         name='Send month notifications'
     )
+    sender.add_periodic_task(
+        crontab(minute=0, hour=0),
+        reset_referral_quotes,
+        name='Reset referral quotes'
+    )
 
 
-@shared_task
-def add(x, y):
-    return x + y
+@app.task
+def reset_referral_quotes():
+    from apps.tasks.models import PlatformTaskSettings
+    settings = PlatformTaskSettings.load()
+    get_user_model().objects.all().update(referral_quote=settings.referral_quote)  # NOQA
 
 
 @app.task
