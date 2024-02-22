@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 from image_optimizer.fields import OptimizedImageField
 
 from .managers import UserManager
-from .utils import random_hex
+from .utils import random_hex, default_referral_quote
 from .validators import username_validator
 
 
@@ -43,7 +43,7 @@ class User(AbstractUser):
     points_referral = models.FloatField(default=0)
 
     referrer = models.ForeignKey("self", related_name='referrals', on_delete=models.SET_NULL, null=True, blank=True)  # NOQA
-    referral_quote = models.PositiveIntegerField(default=0)
+    referral_quote = models.PositiveIntegerField(default=default_referral_quote)
 
     # cabinet notifications settings
     cabinet_notifications_email = models.BooleanField(default=False)
