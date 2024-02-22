@@ -39,7 +39,7 @@ class UserReferralsListAV(ListAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return self.request.user.referrals.all().annotate(referrals_count=Count('referrals')).order_by('referrals_count')
+        return self.request.user.referrals.all().annotate(referrals_count=Count('referrals')).order_by('referrals_count')  # NOQA
 
 
 class UserSetReferralCookie(APIView):

@@ -63,7 +63,7 @@ class PlatformTaskGetRewardAV(APIView):
         task_log.got = True
         task_log.save()
         if request.user.referrer:
-            request.user.referrer.points_referral += task_log.reward * (settings.referral_comission / 100)
+            request.user.referrer.points_referral += task_log.reward * (settings.referral_comission / 100)  # NOQA
             request.user.referrer.save()
 
         return Response({"status": "ok"})

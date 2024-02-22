@@ -44,7 +44,6 @@ def user_handler(sender, instance, **kwargs):
                 reward=settings.task_referral_self_reward
             )
 
-
     enabled = instance.cabinet_notifications_account
     log = logs.filter(task='task_cabinet_notification_account').first()
     if enabled and (not log):
@@ -56,6 +55,8 @@ def user_handler(sender, instance, **kwargs):
     elif (not enabled) and log:
         if log.got:
             instance.points = instance.points - (log.reward * (settings.cancel_fee / 100 + 1))  # NOQA
+            instance.referrer.points_referral -= round(log.reward * (settings.cancel_fee + 1) * settings.referral_comission / 100 / 100, 1)  # NOQA
+            instance.referrer.save()
         log.delete()
         instance.save()
 
@@ -70,5 +71,7 @@ def user_handler(sender, instance, **kwargs):
     elif (not enabled) and log:
         if log.got:
             instance.points = instance.points - (log.reward * (settings.cancel_fee / 100 + 1))  # NOQA
+            instance.referrer.points_referral -= round(log.reward * (settings.cancel_fee + 100) * settings.referral_comission / 100 / 100, 1)  # NOQA
+            instance.referrer.save()
         log.delete()
         instance.save()

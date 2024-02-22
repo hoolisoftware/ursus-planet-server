@@ -27,6 +27,7 @@ def create_social_create_handler(social, social_task_name):
 def create_social_delete_handler(social, social_task_name):
     @receiver(pre_delete, sender=social)
     def handler(sender, instance, **kwargs):
+        settings = PlatformTaskSettings.load()
         log = PlatformTaskLog.objects.filter(
             user=instance.owner,
             task=social_task_name
@@ -34,8 +35,10 @@ def create_social_delete_handler(social, social_task_name):
 
         if log:
             if log.got:
-                log.user.points -= log.reward
+                log.user.points -= log.reward * (settings.cancel_fee / 100 + 1)
                 log.user.save()
+                instance.owner.referrer.points_referral = round(instance.owner.referrer.points_referral - log.reward * (settings.cancel_fee + 100) * settings.referral_comission / 100 / 100, 1)  # NOQA
+                instance.owner.referrer.save()
             log.delete()
 
     return handler
