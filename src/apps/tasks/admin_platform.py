@@ -21,7 +21,7 @@ class PlatformTaskSettingsAdmin(admin.ModelAdmin):
         (
             "General settings",
             {
-                "fields": ("cancel_fee", "referral_quote"),
+                "fields": ("cancel_fee", "referral_quote", "referral_comission"),
             },
         ),
     ) + tuple(

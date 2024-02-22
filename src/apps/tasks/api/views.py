@@ -41,6 +41,7 @@ class PlatformTaskGetRewardAV(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
+        settings = models.PlatformTaskSettings.load()
         task_name = request.data.get('task_name')
 
         if task_name not in [task[0] for task in models.TASKS]:
@@ -61,5 +62,8 @@ class PlatformTaskGetRewardAV(APIView):
         request.user.save()
         task_log.got = True
         task_log.save()
+        if request.user.referrer:
+            request.user.referrer.points_referral += task_log.reward * (settings.referral_comission / 100)
+            request.user.referrer.save()
 
         return Response({"status": "ok"})

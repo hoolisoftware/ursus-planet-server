@@ -40,6 +40,7 @@ class User(AbstractUser):
     first_name = None
     last_name = None
     points = models.FloatField(default=0)
+    points_referral = models.FloatField(default=0)
 
     referrer = models.ForeignKey("self", related_name='referrals', on_delete=models.SET_NULL, null=True, blank=True)  # NOQA
     referral_quote = models.PositiveIntegerField(default=0)
