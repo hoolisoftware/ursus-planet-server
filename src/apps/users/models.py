@@ -22,6 +22,8 @@ class User(AbstractUser):
         ('month', 'Every month')
     )
 
+    first_name = None
+    last_name = None
     username = models.CharField(
         max_length=64,
         validators=[username_validator],
@@ -37,13 +39,11 @@ class User(AbstractUser):
     )
     email = models.EmailField(blank=True, null=True)
     password = models.TextField(blank=True, null=True)
-    first_name = None
-    last_name = None
     points = models.FloatField(default=0)
     points_referral = models.FloatField(default=0)
 
     referrer = models.ForeignKey("self", related_name='referrals', on_delete=models.SET_NULL, null=True, blank=True)  # NOQA
-    referral_quote = models.PositiveIntegerField(default=default_referral_quote)
+    referral_quote = models.PositiveIntegerField(default=default_referral_quote)  # NOQA
 
     # cabinet notifications settings
     cabinet_notifications_email = models.BooleanField(default=False)

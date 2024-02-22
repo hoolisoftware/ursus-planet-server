@@ -4,7 +4,18 @@ from ..models import User
 
 
 class UserSerializer(ModelSerializer):
-    read_only_fields = ('is_active', 'is_staff', 'referrer')
+    read_only_fields = (
+        'is_active',
+        'is_staff',
+        'referrer',
+        'referral_points,'
+        'points',
+        'color1',
+        'color2',
+        'color3',
+        'color4',
+        'color5'
+    )
     referrer = SlugRelatedField(
         read_only=True,
         slug_field='username'
