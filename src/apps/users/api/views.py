@@ -4,12 +4,12 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
+from django.db.models import Count
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
-
 
 from .. import models
 from . import serializers
@@ -39,7 +39,7 @@ class UserReferralsListAV(ListAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return self.request.user.referrals.all()
+        return self.request.user.referrals.all().annotate(referrals_count=Count('referrals')).order_by('referrals_count')
 
 
 class UserSetReferralCookie(APIView):
