@@ -67,3 +67,14 @@ class PlatformTaskGetRewardAV(APIView):
             request.user.referrer.save()
 
         return Response({"status": "ok"})
+
+
+class ReferrerClaimAV(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        request.user.points += request.user.points_referral
+        request.user.points_referral = 0
+        request.user.save()
+
+        return Response({"status": "ok"})
