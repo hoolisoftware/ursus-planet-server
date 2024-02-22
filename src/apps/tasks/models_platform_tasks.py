@@ -32,7 +32,7 @@ TASKS = (
         'Task - set username'
     ),
     (
-        'task_domain_id',
+        'task_username_domain_id',
         'Task - set domain id username'
     ),
     (
@@ -56,15 +56,15 @@ TASKS = (
         'Task - add chain'
     ),
     (
-        'task_referral_self',
-        'Task - set referral code'
+        'task_referrer',
+        'Task - set referrer'
     ),
     (
-        'task_cabinet_notification_account',
+        'task_cabinet_notifications_account',
         'Task - enable cabinet account notifications'
     ),
     (
-        'task_cabinet_notification_email',
+        'task_cabinet_notifications_email',
         'Task - enable cabinet email notifications'
     )
 )
@@ -91,13 +91,13 @@ class PlatformTaskLog(models.Model):
 
 class PlatformTaskSettings(SingletonModel):
 
+    class Meta:
+        verbose_name_plural = 'Platform Tasks settings'
+
     title = 'Platform Tasks settings'
     cancel_fee = models.PositiveIntegerField(default=0, verbose_name='Task cancel fee (%)')  # NOQA
     referral_quote = models.PositiveIntegerField(default=0)  # NOQA
     referral_comission = models.PositiveIntegerField(default=0, verbose_name='Referral comission (%)')  # NOQA
-
-    class Meta:
-        verbose_name_plural = 'Platform Tasks settings'
 
 
 for task in TASKS:
