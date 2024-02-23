@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model
-from django.db.models.signals import pre_save
+from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
 
 from apps.tasks.models import PlatformTaskLog, PlatformTaskSettings
@@ -36,3 +36,10 @@ def user_handler(sender, instance, **kwargs):
             if log.got and (task in cancellable_tasks):
                 instance.cancel_points(log.reward)
                 log.delete()
+
+
+@receiver(post_save, sender=User)
+def user_create_handler(sender, instance, created, **kwargs):
+    settings = PlatformTaskSettings.load()
+
+    instance.referral_quote = settings.referral_quote

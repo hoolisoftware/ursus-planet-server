@@ -43,6 +43,7 @@ class UserAdmin(admin.ModelAdmin):
                 'points',
                 'points_referral',
                 'referrer',
+                'referral_quote',
             ),
         }),
         ('Notifications', {

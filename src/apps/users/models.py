@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.apps import apps
 from image_optimizer.fields import OptimizedImageField
 from django.db import models
@@ -116,13 +118,11 @@ class User(
         referral_interest: bool = True,
         referral: bool = False
     ) -> None:
-        print(points)
         points = round(points, 1)
-        print(points)
         if referral:
-            self.points_referral += points
+            self.points_referral += Decimal(points)
         else:
-            self.points += points
+            self.points += Decimal(points)
         self.save()
 
         if referral_interest and self.referrer:
