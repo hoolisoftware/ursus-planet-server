@@ -30,6 +30,41 @@ class UserAdmin(admin.ModelAdmin):
     autocomplete_fields = (
         'referrer',
     )
+    fieldsets = (
+        ('General', {
+            "fields": (
+                'username',
+                'email',
+                'avatar',
+            ),
+        }),
+        ('Points & referrer', {
+            "fields": (
+                'points',
+                'points_referral',
+                'referrer',
+            ),
+        }),
+        ('Notifications', {
+            "fields": (
+                'cabinet_notifications_email',
+                'cabinet_notifications_account',
+                'cabinet_notifications_frequency',
+                'project_notifications_email',
+                'project_notifications_account',
+                'project_notifications_frequency'
+            ),
+        }),
+        ('Groups & permissions', {
+            "fields": (
+                'user_permissions',
+                'groups',
+                'is_active',
+                'is_staff',
+                'is_superuser',
+            ),
+        }),
+    )
 
 
 @admin.register(UserEmailCode)

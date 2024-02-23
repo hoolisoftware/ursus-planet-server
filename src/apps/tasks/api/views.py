@@ -6,6 +6,7 @@ from rest_framework.generics import RetrieveAPIView
 from . import serializers
 from . import exceptions
 from .. import models
+from .. import utils
 
 
 class PlatformTasksRetieveAV(APIView):
@@ -16,16 +17,18 @@ class PlatformTasksRetieveAV(APIView):
         logs = models.PlatformTaskLog.objects.filter(user=request.user)
         return Response((
             {
-                "name": task[0],
+                "name": task.name,
                 **{
-                    setting[0]: getattr(
+                    attr[0]: getattr(
                         settings,
-                        f'{task[0]}_{setting[0]}',
+                        f'{task.name}_{attr[0]}',
                         None
-                    ) for setting in models.TASK_SETTINGS
+                    ) for attr in utils.get_tasks_platform_attrs()
                 },
-                "log": serializers.PlatformTaskLogSerializer(logs.filter(task=task[0]).first()).data  # NOQA
-            } for task in models.TASKS
+                "log": serializers.PlatformTaskLogSerializer(
+                    logs.filter(task=task.name).first()
+                ).data
+            } for task in utils.get_tasks_platform()
         ))
 
 
@@ -41,10 +44,9 @@ class PlatformTaskGetRewardAV(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
-        settings = models.PlatformTaskSettings.load()
         task_name = request.data.get('task_name')
 
-        if task_name not in [task[0] for task in models.TASKS]:
+        if task_name not in (task.name for task in utils.get_tasks_platform()):
             raise exceptions.InvalidTaskName
 
         task_log = models.PlatformTaskLog.objects.filter(
@@ -58,13 +60,9 @@ class PlatformTaskGetRewardAV(APIView):
         if task_log.got:
             raise exceptions.AlreadyGotReward
 
-        request.user.points += task_log.reward
-        request.user.save()
+        request.user.add_points(task_log.reward)
         task_log.got = True
         task_log.save()
-        if request.user.referrer:
-            request.user.referrer.points_referral += task_log.reward * (settings.referral_comission / 100)  # NOQA
-            request.user.referrer.save()
 
         return Response({"status": "ok"})
 
