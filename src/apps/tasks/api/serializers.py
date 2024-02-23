@@ -8,7 +8,8 @@ class PlatformTaskSettingsSerializer(ModelSerializer):
         model = models.PlatformTaskSettings
         fields = (
             'cancel_fee',
-            'referral_quote'
+            'referral_quote',
+            'referral_interest'
         )
 
 
