@@ -34,12 +34,26 @@ class UserViewSet(UserSelfMixin, ModelViewSet):
     serializer_class = serializers.UserSerializer
 
 
+class UserSelfReferralsListAV(ListAPIView):
+    serializer_class = serializers.UserReferralSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return self.request.user.referrals\
+            .annotate(referrals_count=Count('referrals'))\
+            .order_by('-referrals_count')\
+            .filter(referrals_count__gt=0)
+
+
 class UserReferralsListAV(ListAPIView):
     serializer_class = serializers.UserReferralSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return self.request.user.referrals.all().annotate(referrals_count=Count('referrals')).order_by('referrals_count')  # NOQA
+        return User.objects\
+            .annotate(referrals_count=Count('referrals'))\
+            .order_by('-referrals_count')\
+            .filter(referrals_count__gt=0)
 
 
 class UserSetReferralCookie(APIView):
