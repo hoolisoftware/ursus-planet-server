@@ -54,7 +54,7 @@ class PlatformTaskLog(models.Model):
 class PlatformTaskSettings(SingletonModel):
 
     title = 'Platform Tasks settings'
-    referral_genesis_user = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
+    referral_genesis_user = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)  # NOQA
     referral_quote = models.PositiveIntegerField(default=0)
     referral_interest = models.PositiveIntegerField(
         default=0,

@@ -1,4 +1,8 @@
-from rest_framework.serializers import ModelSerializer, SlugRelatedField, IntegerField
+from rest_framework.serializers import (
+    ModelSerializer,
+    SlugRelatedField,
+    IntegerField
+)
 
 from ..models import User
 

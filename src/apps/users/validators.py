@@ -10,6 +10,7 @@ username_validator = RegexValidator(
     )
 )
 
+
 def username_forbidden_validator(username: str) -> None:
     usernames_now_allowed = (
         'unknown',
@@ -24,3 +25,9 @@ def username_forbidden_validator(username: str) -> None:
     )
     if username in usernames_now_allowed:
         raise ValidationError("This username isn't allowed")
+
+
+def avatar_validator(avatar) -> None:
+    if avatar:
+        if avatar.size > 5*1024*1024:
+            raise ValidationError("Avatar image must be small than 5 mb")

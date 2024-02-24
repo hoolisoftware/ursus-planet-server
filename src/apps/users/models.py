@@ -7,7 +7,11 @@ from django.contrib.auth.models import AbstractUser
 
 from .managers import UserManager
 from .utils import random_hex
-from .validators import username_validator, username_forbidden_validator
+from .validators import (
+    username_validator,
+    username_forbidden_validator,
+    avatar_validator
+)
 
 
 get_tasks_platform_settings = lambda: apps.get_model('tasks.PlatformTaskSettings').load()  # NOQA
@@ -106,7 +110,8 @@ class User(
         optimized_image_output_size=(500, 500),
         optimized_image_resize_method="cover",
         null=True,
-        blank=True
+        blank=True,
+        validators=[avatar_validator]
     )
     points = models.DecimalField(
         default=0,

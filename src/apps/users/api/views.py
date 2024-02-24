@@ -46,7 +46,7 @@ class UserSelfReferralsListAV(ListAPIView):
             .annotate(referrals_count=Count('referrals'))\
             .order_by('-referrals_count')\
             .filter(referrals_count__gt=0)\
-            .exclude(username=getattr(settings.referral_genesis_user, 'username', None))
+            .exclude(username=getattr(settings.referral_genesis_user, 'username', None))  # NOQA
 
 
 class UserReferralsListAV(ListAPIView):
@@ -60,7 +60,7 @@ class UserReferralsListAV(ListAPIView):
             .annotate(referrals_count=Count('referrals'))\
             .order_by('-referrals_count')\
             .filter(referrals_count__gt=0)\
-            .exclude(username=getattr(settings.referral_genesis_user, 'username', None))
+            .exclude(username=getattr(settings.referral_genesis_user, 'username', None))  # NOQA
 
 
 class UserSetReferralCookie(APIView):
