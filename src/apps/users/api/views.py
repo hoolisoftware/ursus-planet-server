@@ -11,6 +11,7 @@ from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 
+from apps.tasks.models import PlatformTaskSettings
 from .. import models
 from . import serializers
 from . import exceptions
@@ -39,10 +40,13 @@ class UserSelfReferralsListAV(ListAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
+        settings = PlatformTaskSettings.load()
+
         return self.request.user.referrals\
             .annotate(referrals_count=Count('referrals'))\
             .order_by('-referrals_count')\
-            .filter(referrals_count__gt=0)
+            .filter(referrals_count__gt=0)\
+            .exclude(username=getattr(settings.referral_genesis_user, 'username', None))
 
 
 class UserReferralsListAV(ListAPIView):
@@ -50,10 +54,13 @@ class UserReferralsListAV(ListAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
+        settings = PlatformTaskSettings.load()
+
         return User.objects\
             .annotate(referrals_count=Count('referrals'))\
             .order_by('-referrals_count')\
-            .filter(referrals_count__gt=0)
+            .filter(referrals_count__gt=0)\
+            .exclude(username=getattr(settings.referral_genesis_user, 'username', None))
 
 
 class UserSetReferralCookie(APIView):

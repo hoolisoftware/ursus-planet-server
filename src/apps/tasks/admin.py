@@ -47,6 +47,7 @@ class PlatformTaskSettingsAdmin(admin.ModelAdmin):
             {
                 "fields": (
                     "cancel_fee",
+                    "referral_genesis_user",
                     "referral_quote",
                     "referral_interest"
                 ),

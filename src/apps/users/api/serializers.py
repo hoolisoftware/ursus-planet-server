@@ -1,4 +1,4 @@
-from rest_framework.serializers import ModelSerializer, SlugRelatedField
+from rest_framework.serializers import ModelSerializer, SlugRelatedField, IntegerField
 
 from ..models import User
 
@@ -20,6 +20,7 @@ class UserSerializer(ModelSerializer):
         read_only=True,
         slug_field='username'
     )
+    referral_count = IntegerField()
 
     class Meta:
         model = User
