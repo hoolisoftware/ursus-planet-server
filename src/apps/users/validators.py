@@ -1,4 +1,5 @@
 from django.core.validators import RegexValidator
+from django.core.exceptions import ValidationError
 
 
 username_validator = RegexValidator(
@@ -8,3 +9,18 @@ username_validator = RegexValidator(
         "numbers, and @/./+/-/_ characters, start from letter, and have length between 4 and 16 characters."  # NOQA
     )
 )
+
+def username_forbidden_validator(username: str) -> None:
+    usernames_now_allowed = (
+        'unknown',
+        'ursas',
+        'ursasplanet',
+        'ursas_planet',
+        'teddy',
+        'teddy_ursas',
+        'teddy_ar',
+        'teddy_arr',
+        'teddy_arrr',
+    )
+    if username in usernames_now_allowed:
+        raise ValidationError("This username isn't allowed")

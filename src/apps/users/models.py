@@ -7,7 +7,7 @@ from django.contrib.auth.models import AbstractUser
 
 from .managers import UserManager
 from .utils import random_hex
-from .validators import username_validator
+from .validators import username_validator, username_forbidden_validator
 
 
 get_tasks_platform_settings = lambda: apps.get_model('tasks.PlatformTaskSettings').load()  # NOQA
@@ -93,7 +93,11 @@ class User(
     last_name = None
     username = models.CharField(
         max_length=64,
-        validators=[username_validator],
+        validators=[
+            username_validator,
+            username_forbidden_validator
+        ],
+        unique=True,
         blank=True,
         null=True
     )
