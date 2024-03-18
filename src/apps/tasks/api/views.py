@@ -27,7 +27,7 @@ class PlatformTasksRetieveAV(APIView):
                 },
                 "log": serializers.PlatformTaskLogSerializer(
                     logs.filter(task=task.name).first()
-                ).data
+                ).data if logs.filter(task=task.name).first() else None
             } for task in utils.get_tasks_platform()
         ))
 

@@ -38,6 +38,15 @@ class UserAdmin(admin.ModelAdmin):
                 'avatar',
             ),
         }),
+        ('Colors', {
+            "fields": (
+                'color1',
+                'color2',
+                'color3',
+                'color4',
+                'color5'
+            ),
+        }),
         ('Points & referrer', {
             "fields": (
                 'points',

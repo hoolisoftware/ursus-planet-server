@@ -31,7 +31,7 @@ class SocialAccountTelegram(SocialAccountBase):
 
 class SocialAccountTelegramCode(models.Model):
     username = models.TextField(unique=True)
-    uuid = models.UUIDField()
+    uuid = models.TextField(unique=True)
     datetime_created = models.DateTimeField(auto_now_add=True)
 
 

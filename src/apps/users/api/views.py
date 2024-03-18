@@ -111,14 +111,14 @@ class UserChangeEmail(APIView):
             email=email
         )
 
-        send_mail(
-            subject="Ursas email verification",
-            from_email='support@ursasplanet.com',
-            html_message=render_to_string('email-verify.html', {'code': object.code}),  # NOQA
-            message=render_to_string('email-verify.txt', {'code': object.code}),  # NOQA
-            recipient_list=[object.email],
-            fail_silently=False,
-        )
+        # send_mail(
+        #     subject="Ursas email verification",
+        #     from_email='support@ursasplanet.com',
+        #     html_message=render_to_string('email-verify.html', {'code': object.code}),  # NOQA
+        #     message=render_to_string('email-verify.txt', {'code': object.code}),  # NOQA
+        #     recipient_list=[object.email],
+        #     fail_silently=False,
+        # )
 
         return Response({'success': 'ok'})
 
