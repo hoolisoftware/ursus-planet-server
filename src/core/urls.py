@@ -11,5 +11,6 @@ urlpatterns = [
     path('api/socials/', include('apps.socials.api.urls')),
     path('api/tasks/', include('apps.tasks.api.urls')),
     path('api/tasks/', include('apps.tasks_platform.api.urls')),
+    path('api/tasks/project/', include('apps.tasks_project.api.urls')),
     path('api/referral-program/', include('apps.referral_program.api.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

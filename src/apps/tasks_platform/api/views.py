@@ -2,6 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
+from apps.tasks.api.views import TaskGetRewardAV
 from . import serializers
 from . import exceptions
 from .. import models
@@ -31,28 +32,20 @@ class PlatformTasksRetieveAV(APIView):
         ))
 
 
-class PlatformTaskGetRewardAV(APIView):
-    permission_classes = [IsAuthenticated]
+class PlatformTaskGetRewardAV(TaskGetRewardAV):
 
-    def post(self, request):
-        task_name = request.data.get('task_name')
+    def get_log_or_none(self) -> models.PlatformTaskLog:
+        task_name = self.request.data.get('task_name')
+
+        if not task_name:
+            raise exceptions.MissingTaskName
 
         if task_name not in (task.name for task in utils.get_tasks_platform()):
             raise exceptions.InvalidTaskName
 
         task_log = models.PlatformTaskLog.objects.filter(
-            user=request.user,
+            user=self.request.user,
             task=task_name
         ).first()
 
-        if not task_log:
-            raise exceptions.NotFoundTaskLog
-
-        if task_log.got:
-            raise exceptions.AlreadyGotReward
-
-        request.user.add_points(points=task_log.reward)
-        task_log.got = True
-        task_log.save()
-
-        return Response({"status": "ok"})
+        return task_log

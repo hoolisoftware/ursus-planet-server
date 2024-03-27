@@ -1,32 +1,19 @@
-from django.contrib.auth import get_user_model
 from django.db import models
 from core.models import SingletonModel
 
-
+from apps.tasks.models import TaskLog
 from .utils import (
     get_tasks_platform,
     get_tasks_platform_attrs
 )
 
 
-User = get_user_model()
-
-
-class PlatformTaskLog(models.Model):
+class PlatformTaskLog(TaskLog):
     CHOICES_TASK = (
         (task.name, task.title) for task in
         get_tasks_platform()
     )
-
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     task = models.CharField(max_length=128, choices=CHOICES_TASK)
-
-    got = models.BooleanField(default=False)
-    reward = models.PositiveIntegerField(default=0)
-    created = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        unique_together = (('user', 'task'),)
 
 
 class PlatformTasks(SingletonModel):
