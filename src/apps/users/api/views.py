@@ -2,20 +2,16 @@ from random import randint
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.core.mail import send_mail
-from django.template.loader import render_to_string
-from django.db.models import Count
+# from django.core.mail import send_mail
+# from django.template.loader import render_to_string
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.views import APIView
-from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 
-from apps.tasks.models import PlatformTaskSettings
 from .. import models
 from . import serializers
 from . import exceptions
-from . import utils
 
 
 User = get_user_model()
@@ -35,34 +31,6 @@ class UserViewSet(UserSelfMixin, ModelViewSet):
     serializer_class = serializers.UserSerializer
 
 
-class UserSelfReferralsListAV(ListAPIView):
-    serializer_class = serializers.UserReferralSerializer
-    permission_classes = [IsAuthenticated]
-
-    def get_queryset(self):
-        settings = PlatformTaskSettings.load()
-
-        return self.request.user.referrals\
-            .annotate(referrals_count=Count('referrals'))\
-            .order_by('-referrals_count')\
-            .filter(referrals_count__gt=0)\
-            .exclude(username=getattr(settings.referral_genesis_user, 'username', None))  # NOQA
-
-
-class UserReferralsListAV(ListAPIView):
-    serializer_class = serializers.UserReferralSerializer
-    permission_classes = [IsAuthenticated]
-
-    def get_queryset(self):
-        settings = PlatformTaskSettings.load()
-
-        return User.objects\
-            .annotate(referrals_count=Count('referrals'))\
-            .order_by('-referrals_count')\
-            .filter(referrals_count__gt=0)\
-            .exclude(username=getattr(settings.referral_genesis_user, 'username', None))  # NOQA
-
-
 class UserSetReferralCookie(APIView):
 
     def post(self, request):
@@ -77,18 +45,6 @@ class UserSetReferralCookie(APIView):
         )
         response.data = {'success': 'ok'}
         return response
-
-
-class UserSetReferrerAV(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def post(self, request):
-        utils.set_user_referrer(
-            user=request.user,
-            referrer_username=request.data.get('username')
-        )
-
-        return Response({'status': 'ok'})
 
 
 class UserChangeEmail(APIView):

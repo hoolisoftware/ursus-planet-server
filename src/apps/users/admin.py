@@ -21,7 +21,7 @@ class UserAdmin(admin.ModelAdmin):
         'email',
         'referrer',
         'points',
-        'points_referral',
+        'points_referrer',
     )
     search_fields = (
         'username',
@@ -50,7 +50,7 @@ class UserAdmin(admin.ModelAdmin):
         ('Points & referrer', {
             "fields": (
                 'points',
-                'points_referral',
+                'points_referrer',
                 'referrer',
                 'referral_quote',
             ),

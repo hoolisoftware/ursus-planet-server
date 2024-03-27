@@ -1,3 +1,5 @@
+from core.models import SingletonModel
+
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -37,3 +39,12 @@ class SocialAccountTelegramCode(models.Model):
 
 class SocialAccountGithub(SocialAccountBase):
     pass
+
+
+class SocialAccountsOfCompany(SingletonModel):
+    discord = models.URLField()
+    x = models.URLField()
+    telegram = models.URLField()
+    github = models.URLField()
+    instagram = models.URLField()
+    reddit = models.URLField()

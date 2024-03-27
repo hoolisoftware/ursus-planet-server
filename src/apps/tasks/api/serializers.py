@@ -1,19 +1,9 @@
 from rest_framework.serializers import ModelSerializer
 
-from .. import models
+from ..models import TaskSettings
 
 
-class PlatformTaskSettingsSerializer(ModelSerializer):
+class TaskSettingsSerializer(ModelSerializer):
     class Meta:
-        model = models.PlatformTaskSettings
-        fields = (
-            'cancel_fee',
-            'referral_quote',
-            'referral_interest'
-        )
-
-
-class PlatformTaskLogSerializer(ModelSerializer):
-    class Meta:
-        model = models.PlatformTaskLog
-        fields = '__all__'
+        model = TaskSettings
+        fields = "__all__"

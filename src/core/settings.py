@@ -44,8 +44,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'django_celery_results',
-    'django_celery_beat',
     'rest_framework',
     'rest_framework_simplejwt',
     "corsheaders",
@@ -58,10 +56,11 @@ INSTALLED_APPS = [
     'apps.socials',
 
     'apps.tasks',
-    'apps.tasks.socials.discord',
-    'apps.tasks.socials.twitter',
-    'apps.tasks.socials.telegram',
-    'apps.tasks.socials.github',
+    'apps.tasks_platform',
+    'apps.tasks_project',
+
+    'apps.referral_program',
+    'apps.point_system'
 ]
 
 MIDDLEWARE = [

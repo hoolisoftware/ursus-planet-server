@@ -8,7 +8,7 @@ from rest_framework.views import APIView
 from rest_framework.exceptions import APIException
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from apps.users.api.utils import set_user_referrer
+from apps.referral_program.api.utils import set_user_referrer
 from .utils import get_or_create_user
 
 

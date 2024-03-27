@@ -2,11 +2,13 @@ from django.db.models import Model
 from rest_framework import views
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.generics import RetrieveAPIView
 from django.conf import settings
 
 from .. import models
 from . import exceptions
 from . import utils
+from . import serializers
 
 
 SUPPORTED_SOCIALS = [
@@ -162,3 +164,13 @@ class SocialsAuthorizeAV(views.APIView):
             username=username,
             owner=self.request.user
         )
+
+
+class SocialAccountsOfCompanyAV(RetrieveAPIView):
+    authentication_classes = []
+    permission_classes = []
+    serializer_class = serializers.SocialAccountsOfCompanySerializer
+    model = models.SocialAccountsOfCompany
+
+    def get_object(self):
+        return self.model.load()
