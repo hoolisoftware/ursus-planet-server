@@ -17,11 +17,15 @@ class UserTaskCustomSerializer(ModelSerializer):
         fields = "__all__"
 
     def get_log(self, instance):
-        if self.context.get('request').user:
-            return TaskCustomLogSerializer(
-                models.TaskCustomLog.objects.filter(
-                    user=self.context.get('request').user,
-                    task=instance.id).first()
-            ).data
-        else:
+        if not self.context.get('request').user:
             return None
+
+        log = models.TaskCustomLog.objects.filter(
+            user=self.context.get('request').user,
+            task=instance.id
+        ).first()
+
+        if not log:
+            return None
+
+        return TaskCustomLogSerializer(log).data
