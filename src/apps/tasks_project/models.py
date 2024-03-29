@@ -12,7 +12,7 @@ class TaskCustom(models.Model):
     link = models.URLField()
     reward = models.PositiveIntegerField(default=0)
     created = models.DateTimeField(auto_now=True)
-    expiration = models.DateTimeField()
+    expiration = models.DateTimeField(blank=True, null=True)
     description = models.TextField()
     is_active = models.BooleanField(default=False)
 

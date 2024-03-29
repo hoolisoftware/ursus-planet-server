@@ -13,7 +13,7 @@ class UserTaskCustomListAV(ListAPIView):
     serializer_class = serializers.UserTaskCustomSerializer
 
     def get_queryset(self):
-        return models.TaskCustom.objects.all()
+        return models.TaskCustom.objects.filter(is_active=True)  # noqa
 
 
 class TaskCustomGetRewardAV(TaskGetRewardAV):
