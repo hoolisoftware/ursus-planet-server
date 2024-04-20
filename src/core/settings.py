@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'image_optimizer',
 
     'apps.users',
+    'apps.seasons',
     'apps.projects',
     'apps.wallets',
     'apps.web3auth',
