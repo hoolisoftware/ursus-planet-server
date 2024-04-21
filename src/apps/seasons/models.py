@@ -56,3 +56,27 @@ class SeasonParticipation(models.Model):
 
     def __str__(self):
         return f'{self.season.title} <= {self.user}'
+
+
+class BasePrize(models.Model):
+    image = models.ImageField(upload_to='seasons/prize/image/')
+    season = models.OneToOneField(Season, on_delete=models.CASCADE)
+
+    class Meta:
+        abstract = True
+
+
+class PrizeCoin(BasePrize):
+    coin_ticker = models.CharField(max_length=64)
+    coin_count = models.FloatField()
+
+
+class PrizeNft(BasePrize):
+    collection_name = models.CharField(max_length=128)
+    collection_link = models.URLField()
+    nft_number = models.PositiveIntegerField()
+
+
+class PrizeWl(BasePrize):
+    whitelist_name = models.CharField(max_length=128)
+    whitelist_count = models.PositiveIntegerField()

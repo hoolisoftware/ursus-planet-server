@@ -24,3 +24,27 @@ class SeasonParticipationAdmin(admin.ModelAdmin):
         'season',
         'user'
     )
+
+
+class PrizeAdmin(admin.ModelAdmin):
+    list_display = (
+        'season',
+    )
+    list_filters = (
+        'season',
+    )
+
+
+@admin.register(models.PrizeCoin)
+class PrizeCoinAdmin(PrizeAdmin):
+    pass
+
+
+@admin.register(models.PrizeNft)
+class PrizeNftAdmin(PrizeAdmin):
+    pass
+
+
+@admin.register(models.PrizeWl)
+class PrizeWlAdmin(PrizeAdmin):
+    pass
