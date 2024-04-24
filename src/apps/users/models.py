@@ -2,6 +2,7 @@ from django.apps import apps
 from image_optimizer.fields import OptimizedImageField
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.core.exceptions import ValidationError
 
 from apps.notifications.models import AbstractUserWithNotificationSettings
 from apps.referral_program.models import AbstractUserWithReferralProgram
@@ -94,7 +95,7 @@ class User(
         if self.username_as_domain_id and not self.username_domain_id:
             raise ValidationError('Domain id username cannot be empty')  # noqa
         if self.avatar_as_nft and not self.avatar_nft:
-            raise ValidationError('Domain id username cannot be empty')  # noqa
+            raise ValidationError('Avatar NFT cannot be empty')  # noqa
 
 
 class UserEmailCode(models.Model):
