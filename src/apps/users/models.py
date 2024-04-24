@@ -55,6 +55,17 @@ class User(
         blank=True,
         null=True
     )
+    username_domain_id = models.CharField(
+        max_length=64,
+        validators=[
+            username_validator,
+            username_forbidden_validator
+        ],
+        unique=True,
+        blank=True,
+        null=True
+    )
+    username_as_domain_id = models.BooleanField(default=False)
     avatar = OptimizedImageField(
         upload_to='users/user/avatar/',
         optimized_image_output_size=(500, 500),
@@ -63,11 +74,27 @@ class User(
         blank=True,
         validators=[avatar_validator]
     )
+    avatar_nft = OptimizedImageField(
+        upload_to='users/user/avatar/',
+        optimized_image_output_size=(500, 500),
+        optimized_image_resize_method="cover",
+        null=True,
+        blank=True,
+        validators=[avatar_validator]
+    )
+    avatar_as_nft = models.BooleanField(default=False)
     email = models.EmailField(blank=True, null=True)
     password = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return f'User ({self.id}) {self.username}'
+
+    def clean_fields(self, exclude=None):
+        super().clean_fields(exclude=exclude)
+        if self.username_as_domain_id and not self.username_domain_id:
+            raise ValidationError('Domain id username cannot be empty')  # noqa
+        if self.avatar_as_nft and not self.avatar_nft:
+            raise ValidationError('Domain id username cannot be empty')  # noqa
 
 
 class UserEmailCode(models.Model):

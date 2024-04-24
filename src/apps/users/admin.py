@@ -34,8 +34,12 @@ class UserAdmin(admin.ModelAdmin):
         ('General', {
             "fields": (
                 'username',
+                'username_domain_id',
+                'username_as_domain_id',
                 'email',
                 'avatar',
+                'avatar_nft',
+                'avatar_as_nft'
             ),
         }),
         ('Colors', {
